@@ -3,6 +3,10 @@
     <p v-show="!commentList.length" class="defaultmessage">
       There are no comments yet.
     </p>
+
+    <p>
+    Hello
+    </p>
     <ul class="commentList">
       <li v-for="commentList in commentList" v-bind:key="item.id">
         <p class="username">{{ commentList.name }}:</p>
