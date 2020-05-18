@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -28,10 +29,37 @@
         target="_blank"
         text
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <span class="mr-2">LOGIN</span>
+        <v-icon class="mdi mdi-account-music"></v-icon>
+        <v-icon>account-check</v-icon>
       </v-btn>
     </v-app-bar>
+
+    <v-toolbar-side-icon></v-toolbar-side-icon>
+
+    <v-navigation-drawer app v-model="drawer" class="indigo">
+      <v-list class="indigo">
+        <v-list-item
+          class="text-xs-center"
+          v-for="link in links"
+          :key="link.text"
+          router
+          :to="link.route"
+          :style="{
+            'align-items': 'center',
+          }"
+        >
+          <v-list-item-action>
+            <v-icon class="white--text">{{ link.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title class="white--text">
+              {{ link.text }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <v-content>
       <HelloWorld />
@@ -50,7 +78,11 @@ export default {
   },
 
   data: () => ({
-    //
+    drawer: false,
+    links: [
+      { icon: "mdi-music-note-plus", text: "Dashboard", route: "/" },
+      { icon: "mdi-home", text: "Home", route: "/home" },
+    ],
   }),
 };
 </script>
