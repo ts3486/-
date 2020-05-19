@@ -43,7 +43,7 @@
           class="text-xs-center"
           v-for="link in links"
           :key="link.text"
-          router-link
+          router
           :to="link.route"
           :style="{
             'align-items': 'center',
