@@ -80,8 +80,11 @@ export default {
   data: () => ({
     drawer: false,
     links: [
-      { icon: "mdi-music-note-plus", text: "Dashboard", route: "/" },
-      { icon: "mdi-home", text: "Home", route: "/home" },
+      { icon: "mdi-home", text: "Home", route: "/" },
+      { icon: "mdi-music-note-plus", text: "Musicians", route: "/musicians" },
+      { icon: "mdi-magnify", text: "Search", route: "/search" },
+      { icon: "mdi-account-box", text: "MyPage", route: "/mypage" },
+      { icon: "mdi-help", text: "About", route: "/about" },
     ],
   }),
 };
