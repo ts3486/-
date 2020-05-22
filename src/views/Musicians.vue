@@ -1,6 +1,7 @@
 <template>
   <div class="ma-5">
     <h1 class="musicians ma-5">Musicians</h1>
+<<<<<<< HEAD
 
     <v-container fluid class="ma-3">
       <v-layout row wrap justify-center>
@@ -30,6 +31,8 @@
       </v-layout>
     </v-container>
 
+=======
+>>>>>>> origin/master
     <v-container fluid class="ma-3">
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum
