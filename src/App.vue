@@ -24,18 +24,15 @@
 
       <v-spacer></v-spacer>
 
-      <!-- <v-btn
+      <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
         target="_blank"
         text
-      > -->
-      <router-link to="/login">
-        <v-btn>
-          <span class="mr-2">LOGIN</span>
-          <v-icon class="mdi mdi-account-music"></v-icon>
-          <v-icon>account-check</v-icon>
-        </v-btn>
-      </router-link>
+      >
+        <span class="mr-2">LOGIN</span>
+        <v-icon class="mdi mdi-account-music"></v-icon>
+        <v-icon>account-check</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-toolbar-side-icon></v-toolbar-side-icon>
