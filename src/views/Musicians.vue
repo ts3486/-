@@ -16,10 +16,16 @@
       </v-layout>
     </v-container>
 
-    <v-container fluid class="ma-5">
+    <v-container fluid class=" ma-1 pa-1">
+      <v-layout row wrap justify-center>
+        <input type="file" @change="onFileSelect" />
+      </v-layout>
+    </v-container>
+
+    <v-container fluid class="ma-5 pa-1">
       <v-layout row wrap justify-center>
         <v-flex xs12 md8>
-          <v-btn outline block class="primary">Upload</v-btn>
+          <v-btn outline block class="primary" @click="onUpload">Upload</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -40,7 +46,32 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      selectedFile: null,
+    };
+  },
+  methods: {
+    onFileSelect(event) {
+      this.selectedFile = event.target.file[0];
+    },
+    onUpload() {
+      const fd = new FormData();
+      fd.append("image", this.selectedFile, this.selectedFile.name);
+      axios
+        .post(
+          "https://us-central1-musely-7f3f3.cloudfunctions.net/helloWorld",
+          fd
+        )
+        .then(res => {
+          console.log(res);
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
