@@ -1,0 +1,57 @@
+<template>
+  <v-container>
+    <v-card width="400px" class="mx-auto mt-5">
+      <v-card-title>
+        <h2>Signup</h2>
+      </v-card-title>
+      <v-card-text>
+        <v-form>
+          <v-text-field
+            prepend-icon="mdi-email"
+            label="email"
+            v-model="email"
+          ></v-text-field>
+          <v-text-field
+            :type="text"
+            prepend-icon="mdi-lock"
+            label="password"
+            v-model="password"
+          ></v-text-field>
+          <v-card-actions>
+            <v-btn
+              class="info"
+              style="margin-left: auto;"
+              @click="createUserAccount"
+              >Signup</v-btn
+            >
+          </v-card-actions>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-container>
+</template>
+
+<script>
+import firebase from "firebase";
+export default {
+  name: "SignUp",
+  data: () => ({
+    email: "",
+    password: "",
+  }),
+  methods: {
+    createUserAccount: function() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          alert("アカウント作成");
+          this.$router.push("/login");
+        })
+        .catch(error => {
+          alert("Error!", error.message);
+        });
+    },
+  },
+};
+</script>
