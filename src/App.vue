@@ -25,7 +25,7 @@
       <v-spacer></v-spacer>
 
       <router-link to="/login">
-        <v-btn>
+        <v-btn class="primary">
           <span class="mr-2">LOGIN</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
@@ -60,20 +60,34 @@
     </v-navigation-drawer>
 
     <v-content>
-      <router-view />
+      <router-view></router-view>
     </v-content>
+
+    <v-footer color="primary" dark padless>
+      <v-row justify="center" no-gutters>
+        <v-btn
+          v-for="link in links"
+          :key="link.text"
+          color="white"
+          text
+          rounded
+          class="my-2"
+          router
+          :to="link.route"
+        >
+          {{ link.text }}
+        </v-btn>
+        <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
+          &#169; {{ new Date().getFullYear() }} chobihige
+        </v-col>
+      </v-row>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld";
-
 export default {
   name: "App",
-
-  components: {
-    // HelloWorld,
-  },
 
   data: () => ({
     drawer: false,
