@@ -1,10 +1,18 @@
 <template>
   <div class="ma-5">
-    <h1 class="musicians ma-5">Musicians</h1>
+    <h1 class="musicians">Musicians</h1>
 
     <div class="form-group">
       <div v-for="(image, index) in images" v-bind:key="index">
         <img :src="image" alt="" width="400px" height="500px" class="center" />
+
+        <!-- <video
+          :src="image"
+          alt=""
+          width="400px"
+          height="500px"
+          class="center"
+        /> -->
       </div>
     </div>
 
@@ -24,14 +32,19 @@
 
     <v-container fluid class=" ma-1 pa-1">
       <v-layout row wrap justify-center>
-        <input type="file" @change="onUpload" ref="currentFile" />
+        <input
+          type="file"
+          style="display: none"
+          ref="currentFile"
+          @change="onUpload"
+        />
       </v-layout>
     </v-container>
 
     <v-container fluid class="ma-5 pa-1">
       <v-layout row wrap justify-center>
         <v-flex xs12 md8>
-          <v-btn block class="primary">Upload</v-btn>
+          <v-btn block class="primary" @click="onUpload">Upload</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -82,6 +95,8 @@ export default {
     //   }
 
     onUpload(event) {
+      this.$refs.currentFile.click();
+
       let file = event.target.files[0];
 
       let storageRef = firebase.storage().ref("music_videos/" + file.name);
@@ -202,10 +217,19 @@ export default {
 
 <style lang="scss" scoped>
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  margin: auto;
+  margin-top: 50px;
+  padding: auto;
+}
+
+.musicians {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  padding-bottom: 30px;
+  border-bottom: 3px solid black;
 }
 </style>
