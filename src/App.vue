@@ -38,8 +38,6 @@
       </router-link>
     </v-app-bar>
 
-    <v-toolbar-side-icon></v-toolbar-side-icon>
-
     <v-navigation-drawer app v-model="drawer" class="indigo">
       <v-list class="indigo">
         <v-list-item
