@@ -1,15 +1,17 @@
 <template>
-  <div class="about">
-    <h1 class="About">Developers</h1>
+  <div class="mypage">
+    <h1 class="MyPage">Profile</h1>
   </div>
 </template>
 
-<script></script>
+<script>
+export default {};
+</script>
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Merriweather:wght@300&display=swap");
 
-.About {
+.MyPage {
   font-family: "Lobster", cursive;
   font-size: 60px;
   display: flex;
