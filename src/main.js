@@ -7,17 +7,27 @@ import firebase from "firebase";
 Vue.config.productionTip = false;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBDoJMAXbTzIL3OCRNkYpTd-2232Nr99T4",
-  authDomain: "first-firebase-ad660.firebaseapp.com",
-  databaseURL: "https://first-firebase-ad660.firebaseio.com",
-  projectId: "first-firebase-ad660",
-  storageBucket: "first-firebase-ad660.appspot.com",
-  messagingSenderId: "998901032404",
-  appId: "1:998901032404:web:7563de48061f1bc550a241",
-  measurementId: "G-P7Q35QKF5V",
+  apiKey: "AIzaSyCnx--XbW1BEWJf58zXC7Mo9mI0KZt6oqw",
+  authDomain: "musely-7f3f3.firebaseapp.com",
+  databaseURL: "https://musely-7f3f3.firebaseio.com",
+  projectId: "musely-7f3f3",
+  storageBucket: "musely-7f3f3.appspot.com",
+  messagingSenderId: "43013159235",
+  appId: "1:43013159235:web:1f463a5ad97afcda3d97f6",
+  measurementId: "G-M9TK8RNHTX",
 };
 
 firebase.initializeApp(firebaseConfig);
+
+// firebaseからログイン状態を取得
+firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};
 
 new Vue({
   router,

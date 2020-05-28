@@ -20,12 +20,12 @@
             @click:append="showPassword = !showPassword"
           ></v-text-field>
           <v-card-actions>
-            <div v-if="user">
+            <!-- <div v-if="user">
               <v-btn class="info" style="margin-left: auto;" @click="signOut"
                 >Logout</v-btn
               >
-            </div>
-            <div v-else>
+            </div> -->
+            <div>
               <v-btn class="info" style="margin-left: auto;" @click="userLogin"
                 >Login</v-btn
               >
@@ -74,14 +74,15 @@ export default {
           this.$router.push("/mypage");
         });
     },
-    signOut: function() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          alert("Logout!");
-        });
-    },
+    // signOut: function() {
+    //   firebase
+    //     .auth()
+    //     .signOut()
+    //     .then(() => {
+    //       alert("Logout!");
+    //       this.$router.push("/");
+    //     });
+    // },
   },
   created() {
     // firebase auth ログイン状態を確認

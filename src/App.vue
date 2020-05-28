@@ -24,13 +24,22 @@
 
       <v-spacer></v-spacer>
 
-      <router-link to="/login">
-        <v-btn class="primary">
-          <span class="mr-2">LOGIN</span>
+      <div v-if="user">
+        <v-btn class="primary" @click="signOut">
+          <span class="mr-2">LOGOUT</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
         </v-btn>
-      </router-link>
+      </div>
+      <div v-else>
+        <router-link to="/login">
+          <v-btn class="primary">
+            <span class="mr-2">LOGIN</span>
+            <v-icon class="mdi mdi-account-music"></v-icon>
+            <v-icon>account-check</v-icon>
+          </v-btn>
+        </router-link>
+      </div>
     </v-app-bar>
 
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
@@ -86,9 +95,9 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   name: "App",
-
   data: () => ({
     drawer: false,
     links: [
@@ -99,5 +108,26 @@ export default {
       { icon: "mdi-help", text: "About", route: "/about" },
     ],
   }),
+  methods: {
+    signOut: function() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          alert("Logout!");
+          this.$router.push("/");
+        });
+    },
+  },
+  created() {
+    // firebase auth ログイン状態を確認
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
+  },
 };
 </script>

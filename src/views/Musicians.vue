@@ -30,7 +30,6 @@
       </v-layout>
     </v-container>
 
-    ======= >>>>>>> origin/master
     <v-container fluid class="ma-3">
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum
