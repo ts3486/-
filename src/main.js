@@ -23,6 +23,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+export const db = firebase.firestore();
+export const storage = firebase.storage();
+
 // firebaseからログイン状態を取得
 firebase.getCurrentUser = () => {
   return new Promise((resolve, reject) => {
@@ -32,6 +35,7 @@ firebase.getCurrentUser = () => {
     }, reject);
   });
 };
+
 
 
 new Vue({

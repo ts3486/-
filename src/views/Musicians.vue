@@ -4,7 +4,14 @@
 
     <div class="form-group">
       <div v-for="(image, index) in images" v-bind:key="index">
-        <img :src="image" alt="" width="400px" height="500px" class="center" />
+        <img
+          :src="image.url"
+          alt=""
+          width="400px"
+          height="500px"
+          class="center"
+          accept="image/*"
+        />
 
         <!-- <video
           :src="image"
@@ -77,6 +84,7 @@
 // import axios from "axios";
 import firebase from "firebase";
 import Comments from "@/components/Comments.vue";
+import { db, storage } from "@/main";
 
 export default {
   data() {
@@ -99,39 +107,61 @@ export default {
 
       let file = event.target.files[0];
 
-      let storageRef = firebase.storage().ref("music_videos/" + file.name);
+      const storageRef = storage.ref();
 
-      let uploadTask = storageRef.put(file);
+      const createdAt = new Date();
+      const timestamp = createdAt.getTime();
+      const uniqueFileName = timestamp + "_" + file.name;
 
-      uploadTask.on(
-        "state_changed",
-        snapshot => {
-          // Observe state change events such as progress, pause, and resume
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          var progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log("Upload is paused");
-              break;
-            case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log("Upload is running");
-              break;
-          }
-        },
-        () => {
-          // Handle unsuccessful uploads
-        },
-        () => {
-          // Handle successful uploads on complete
-          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-            this.images.push(downloadURL);
-            console.log("File available at", downloadURL);
-          });
-        }
-      );
+      let fileRef = storageRef.child("music_videos/" + uniqueFileName);
+
+      fileRef
+        .put(file)
+        .then(() => fileRef.getDownloadURL())
+        .then(url => {
+          const image = {
+            name: file.name,
+            url,
+            createdAt,
+          };
+
+          this.images.unshift(url);
+
+          return db.collection("images").add(image); //add
+        });
+
+      // let uploadTask = storageRef.put(file);
+
+      //UploadTask Version
+      // uploadTask.on(
+      //   "state_changed",
+      //   snapshot => {
+      //     // Observe state change events such as progress, pause, and resume
+      //     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      //     var progress =
+      //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      //     console.log("Upload is " + progress + "% done");
+      //     switch (snapshot.state) {
+      //       case firebase.storage.TaskState.PAUSED: // or 'paused'
+      //         console.log("Upload is paused");
+      //         break;
+      //       case firebase.storage.TaskState.RUNNING: // or 'running'
+      //         console.log("Upload is running");
+      //         break;
+      //     }
+      //   },
+      //   () => {
+      //     // Handle unsuccessful uploads
+      //   },
+      //   () => {
+      //     // Handle successful uploads on complete
+      //     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      //     uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+      //       this.images.push(downloadURL);
+      //       console.log("File available at", downloadURL);
+      //     });
+      //   }
+      // );
 
       //reset file input
       let defaultFile = this.$refs.currentFile;
@@ -159,6 +189,32 @@ export default {
     //     .add({ text: this.inputText });
     //   this.inputText = "";
     // },
+
+    getImages() {
+      db.collection("images")
+        .orderBy("createdAt")
+        .limit(5)
+        .get()
+        .then(collection => {
+          this.images = collection.docs.map(doc => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            };
+          });
+          // 上は下のコードと同じ意味
+          // map については Array.prototype.map で調べてみてください
+          //
+          // const images = [];
+          // for (const doc of collection.docs) {
+          //   images.push({
+          //     id: doc.id,
+          //     ...doc.data()
+          //   });
+          // }
+          // this.images = images;
+        });
+    },
   },
 
   created() {
@@ -207,6 +263,10 @@ export default {
     //       this.images.push(item.getDownloadURL);
     //     });
     //   });
+  },
+
+  mounted() {
+    this.getImages();
   },
 
   components: {
