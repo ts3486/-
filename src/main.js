@@ -7,7 +7,6 @@ import firebase from "firebase";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
-
 Vue.config.productionTip = false;
 
 const firebaseConfig = {
@@ -35,8 +34,6 @@ firebase.getCurrentUser = () => {
     }, reject);
   });
 };
-
-
 
 new Vue({
   router,
