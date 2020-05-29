@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mypage">
     <h1 class="MyPage">Profile</h1>
     <h3>ログイン成功しました</h3>
   </div>
