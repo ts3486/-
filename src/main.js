@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
+
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
@@ -23,6 +24,16 @@ firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
 export const storage = firebase.storage();
+
+// firebaseからログイン状態を取得
+firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};
 
 new Vue({
   router,
