@@ -1,11 +1,15 @@
 <template>
   <div class="mypage">
     <h1 class="MyPage">Profile</h1>
+    <h3>ログイン成功しました</h3>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "MyPage",
+  data: () => {},
+};
 </script>
 
 <style lang="scss" scoped>
