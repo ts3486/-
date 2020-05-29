@@ -2,24 +2,26 @@
   <div class="ma-5">
     <h1 class="musicians">Musicians</h1>
 
-    <div class="form-group">
-      <div v-for="(image, index) in images" v-bind:key="index">
-        <img
-          :src="image.url"
-          alt=""
-          width="400px"
-          height="500px"
-          class="center"
-          accept="image/*"
-        />
+    <div class="scrollbackground">
+      <div class="form-group">
+        <div v-for="(image, index) in images" v-bind:key="index">
+          <img
+            :src="image.url"
+            alt=""
+            width="400px"
+            height="500px"
+            class="center"
+            accept="image/*"
+          />
 
-        <!-- <video
+          <!-- <video
           :src="image"
           alt=""
           width="400px"
           height="500px"
           class="center"
         /> -->
+        </div>
       </div>
     </div>
 
@@ -295,5 +297,11 @@ export default {
   margin-top: 50px;
   padding-bottom: 30px;
   border-bottom: 3px solid black;
+}
+
+.scrollbackground {
+  overflow: auto;
+  height: 600px;
+  width: 700;
 }
 </style>
