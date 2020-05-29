@@ -7,6 +7,7 @@ import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
 import MyPage from "../views/Mypage.vue";
 
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -35,6 +36,7 @@ const routes = [
     component: Login,
   },
   {
+
     path: "/signup",
     name: "SignUp",
     component: SignUp,
@@ -44,6 +46,7 @@ const routes = [
     name: "MyPage",
     component: MyPage,
     meta: { requiresAuth: true },
+
   },
 ];
 
