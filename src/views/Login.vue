@@ -7,18 +7,35 @@
       <v-card-text>
         <v-form>
           <v-text-field
-            prepend-icon="mdi-account-circle"
-            label="user name"
+            prepend-icon="mdi-email"
+            label="email"
+            v-model="email"
           ></v-text-field>
           <v-text-field
             :type="showPassword ? 'text' : 'password'"
             prepend-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             label="password"
+            v-model="password"
             @click:append="showPassword = !showPassword"
           ></v-text-field>
           <v-card-actions>
-            <v-btn class="info" style="margin-left: auto;">Login</v-btn>
+            <!-- <div v-if="user">
+              <v-btn class="info" style="margin-left: auto;" @click="signOut"
+                >Logout</v-btn
+              >
+            </div> -->
+            <div>
+              <v-btn class="info" style="margin-left: auto;" @click="userLogin"
+                >Login</v-btn
+              >
+              <v-btn class="info" style="margin-left: 5px;" @click="googleLogin"
+                >Google Login</v-btn
+              >
+              <router-link to="/signup">
+                <v-btn class="info" style="margin-left: 30px;">Signup</v-btn>
+              </router-link>
+            </div>
           </v-card-actions>
         </v-form>
       </v-card-text>
@@ -27,10 +44,55 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "Login",
   data: () => ({
     showPassword: false,
+    user: null,
+    email: "",
+    password: "",
   }),
+  methods: {
+    googleLogin: function() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {
+          alert("ログイン成功");
+          this.$router.push("/mypage");
+        });
+    },
+    userLogin: function() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          alert("ログイン成功");
+          this.$router.push("/mypage");
+        });
+    },
+    // signOut: function() {
+    //   firebase
+    //     .auth()
+    //     .signOut()
+    //     .then(() => {
+    //       alert("Logout!");
+    //       this.$router.push("/");
+    //     });
+    // },
+  },
+  created() {
+    // firebase auth ログイン状態を確認
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
+  },
 };
 </script>
