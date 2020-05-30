@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <v-container fluid class="ma-3">
+    <!-- <v-container fluid class="ma-3">
       <v-layout row wrap justify-center>
         <v-flex xs12 md8>
           <v-btn block class="primary">1</v-btn>
@@ -37,7 +37,7 @@
           <v-btn block class="primary">3</v-btn>
         </v-flex>
       </v-layout>
-    </v-container>
+    </v-container> -->
 
     <v-container fluid class=" ma-1 pa-1">
       <v-layout row wrap justify-center>
