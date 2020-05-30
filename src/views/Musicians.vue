@@ -13,6 +13,8 @@
             class="center"
             accept="image/*"
           />
+          <button @:onclick="like(image)">いいね</button>
+          <span>{{ image.like }}件</span>
 
           <!-- <video
           :src="image"
@@ -192,6 +194,16 @@ export default {
     //   this.inputText = "";
     // },
 
+    // いいね 機能
+    like(image) {
+      db.collection("images")
+        .doc(image.id)
+        .collection("likedUsers")
+        .doc(auth.currentUser.uid)
+        .set({
+          createdAt: new Date(),
+        });
+    },
     getImages() {
       db.collection("images")
         .orderBy("createdAt")
