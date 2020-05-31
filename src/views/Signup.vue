@@ -17,6 +17,13 @@
             label="password"
             v-model="password"
           ></v-text-field>
+          <!-- username追加 -->
+          <v-text-field
+            :type="text"
+            prepend-icon="mdi-account"
+            label="user name"
+            v-model="displayName"
+          ></v-text-field>
           <v-card-actions>
             <v-btn
               class="info"
@@ -33,20 +40,28 @@
 
 <script>
 import firebase from "firebase";
+
 export default {
   name: "SignUp",
   data: () => ({
     email: "",
     password: "",
+    name: "",
   }),
   methods: {
     createUserAccount: function() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => {
+        .then(created => {
           alert("アカウント作成");
           this.$router.push("/login");
+          // ユーザーの表示名
+          const newUser = created.user;
+          newUser.updateProfile({
+            displayName: this.displayName,
+            photoURL: "",
+          });
         })
         .catch(error => {
           alert("Error!", error.message);
