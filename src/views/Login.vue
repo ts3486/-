@@ -58,6 +58,9 @@ export default {
         .then(() => {
           alert("ログイン成功");
           this.$router.push("/mypage");
+        })
+        .catch(error => {
+          alert("Error!", error.message);
         });
     },
     userLogin: function() {
@@ -67,18 +70,11 @@ export default {
         .then(() => {
           alert("ログイン成功");
           this.$router.push("/mypage");
+        })
+        .catch(error => {
+          alert("Error!", error.message);
         });
     },
-  },
-  created() {
-    // firebase auth ログイン状態を確認
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user = user;
-      } else {
-        this.user = null;
-      }
-    });
   },
 };
 </script>
