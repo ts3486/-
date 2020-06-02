@@ -25,7 +25,7 @@
             class="center"
             controls
           />
-          <Comments :image-unique-id="image.name" :componentindex="index" />
+          <Comments :imageID_toComments="image.id" />
         </div>
       </div>
     </div>
@@ -74,8 +74,6 @@
         dolor enim molestiae, placeat dolorem dolorum, magni iusto neque id odit
         animi soluta reiciendis cumque, ad fugiat quisquam. Eos, magni dolorem.
       </p>
-
-      <Comments />
     </v-container>
 
     <!-- <h1>Commnts</h1>
@@ -130,7 +128,7 @@ export default {
             createdAt,
           };
 
-          this.images.unshift({ name, url, createdAt });
+          this.images.unshift({ name, url, timestamp });
 
           return db.collection("images").add(image); //add
         });
@@ -251,18 +249,6 @@ export default {
 
   components: {
     Comments,
-  },
-
-  computed: {
-    related_comments: function(image_id) {
-      let array = [];
-      for (let i = 0; i < this.comments.length; i++) {
-        if (this.comments[i]["image_id"] === image_id) {
-          array.push(this.comments[i]);
-        }
-      }
-      return array;
-    },
   },
 };
 </script>

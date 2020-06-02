@@ -3,14 +3,17 @@
     <div class="limitbox">
       <p v-show="!commentList.length" class="defaultmessage"></p>
       <ul class="commentList">
-        <li v-for="(commentList, index) in commentList" v-bind:key="index">
+        <li v-for="(commentList, index) in uniqueComments" v-bind:key="index">
           <p class="username">{{ commentList.name }}:</p>
           <div class="commentbox">
             <p class="comments">{{ commentList.comment }}</p>
           </div>
         </li>
       </ul>
-      <CommentForm @comment-posted="addComment" />
+      <CommentForm
+        @comment-posted="addComment"
+        :imageID_form="imageID_toComments"
+      />
     </div>
   </div>
 </template>
@@ -23,8 +26,13 @@ export default {
   data() {
     return {
       commentList: [],
+      // relatedComments(
+      //       this.imageID_toComments
+      //     )
     };
   },
+
+  props: ["imageID_toComments"],
 
   // props: [imageUniqueID],
   name: "Comments",
@@ -39,6 +47,16 @@ export default {
 
       this.commentList.push(commentContent);
       // this.commentList.push(name);
+    },
+
+    relatedComments: function(id) {
+      let uniqueComments = [];
+      for (let i = 0; i < this.commentList.length; i++) {
+        if (this.commentList[i]["id"] === id) {
+          uniqueComments.push(this.commentList[i]);
+        }
+        return uniqueComments;
+      }
     },
   },
 
@@ -68,6 +86,18 @@ export default {
     //   });
     // });
   },
+
+  // computed: {
+  //   relatedComments: function(id) {
+  //     let array = [];
+  //     for (let i = 0; i < this.commentList.length; i++) {
+  //       if (this.commentList[i]["id"] === id) {
+  //         array.push(this.commentList[i]);
+  //       }
+  //     }
+  //     return array;
+  //   },
+  // },
 };
 </script>
 

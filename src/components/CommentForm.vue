@@ -21,10 +21,10 @@ export default {
     return {
       username: null,
       comment: null,
-      commentID: null,
-      imageID: null,
     };
   },
+
+  props: ["imageID_form"],
 
   name: "CommentForm",
 
@@ -34,14 +34,15 @@ export default {
         name: this.username,
         comment: this.comment,
         commentID: (this.commentID = Math.random()),
+        imageID: this.imageID_form,
         // imageID: this.imageID,
       };
 
       this.$emit("comment-posted", commentContent),
         (this.username = null),
         (this.comment = null),
-        (this.commentID = null);
-      // (this.imageID = null)
+        (this.commentID = null),
+        (this.imageID = null);
     },
   },
 };
