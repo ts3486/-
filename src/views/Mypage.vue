@@ -29,6 +29,7 @@ import firebase from "firebase";
 
 export default {
   name: "MyPage",
+
   data: () => ({
     isLogin: false,
     user: null,
@@ -41,6 +42,7 @@ export default {
       this.user = user;
     });
   },
+
 };
 </script>
 
