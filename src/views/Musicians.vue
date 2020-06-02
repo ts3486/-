@@ -25,7 +25,7 @@
             class="center"
             controls
           />
-          <Comments />
+          <Comments :image-unique-id="image.name" :componentindex="index" />
         </div>
       </div>
     </div>
@@ -221,16 +221,16 @@ export default {
       }
     });
 
-    firebase
-      .firestore()
-      .collection("comments")
-      .onSnapshot(snapshot => {
-        const docs = snapshot.docs;
-        this.commentList = [];
-        for (const doc of docs) {
-          this.commentList.push(doc.data());
-        }
-      });
+    // firebase
+    //   .firestore()
+    //   .collection("comments")
+    //   .onSnapshot(snapshot => {
+    //     const docs = snapshot.docs;
+    //     this.commentList = [];
+    //     for (const doc of docs) {
+    //       this.commentList.push(doc.data());
+    //     }
+    //   });
 
     // requires rules version 2
     // firebase
@@ -251,6 +251,18 @@ export default {
 
   components: {
     Comments,
+  },
+
+  computed: {
+    related_comments: function(image_id) {
+      let array = [];
+      for (let i = 0; i < this.comments.length; i++) {
+        if (this.comments[i]["image_id"] === image_id) {
+          array.push(this.comments[i]);
+        }
+      }
+      return array;
+    },
   },
 };
 </script>

@@ -26,6 +26,7 @@ export default {
     };
   },
 
+  // props: [imageUniqueID],
   name: "Comments",
 
   methods: {
@@ -37,6 +38,7 @@ export default {
         .add(commentContent);
 
       this.commentList.push(commentContent);
+      // this.commentList.push(name);
     },
   },
 
