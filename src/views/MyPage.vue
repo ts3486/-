@@ -35,7 +35,6 @@ export default {
     photoUrl: "",
   }),
 
-
   methods: {
     addUserData() {
       const userinfo = {
@@ -60,10 +59,6 @@ export default {
     });
   },
   mounted() {},
-
-    });
-  },
-
 };
 </script>
 
