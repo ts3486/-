@@ -42,7 +42,6 @@ export default {
       this.user = user;
     });
   },
-
 };
 </script>
 
