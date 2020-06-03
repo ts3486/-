@@ -26,10 +26,8 @@
 
 <script>
 import firebase from "firebase";
-
 export default {
   name: "MyPage",
-
   data: () => ({
     isLogin: false,
     user: null,
@@ -47,7 +45,6 @@ export default {
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Merriweather:wght@300&display=swap");
-
 .MyPage {
   font-family: "Lobster", cursive;
   font-size: 60px;
