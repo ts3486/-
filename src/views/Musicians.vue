@@ -25,7 +25,7 @@
             class="center"
             controls
           />
-          <Comments />
+          <Comments :imageID_toComments="image.id" />
         </div>
       </div>
     </div>
@@ -74,8 +74,6 @@
         dolor enim molestiae, placeat dolorem dolorum, magni iusto neque id odit
         animi soluta reiciendis cumque, ad fugiat quisquam. Eos, magni dolorem.
       </p>
-
-      <Comments />
     </v-container>
 
     <!-- <h1>Commnts</h1>
@@ -130,7 +128,7 @@ export default {
             createdAt,
           };
 
-          this.images.unshift({ name, url, createdAt });
+          this.images.unshift({ name, url, timestamp });
 
           return db.collection("images").add(image); //add
         });
@@ -221,16 +219,16 @@ export default {
       }
     });
 
-    firebase
-      .firestore()
-      .collection("comments")
-      .onSnapshot(snapshot => {
-        const docs = snapshot.docs;
-        this.commentList = [];
-        for (const doc of docs) {
-          this.commentList.push(doc.data());
-        }
-      });
+    // firebase
+    //   .firestore()
+    //   .collection("comments")
+    //   .onSnapshot(snapshot => {
+    //     const docs = snapshot.docs;
+    //     this.commentList = [];
+    //     for (const doc of docs) {
+    //       this.commentList.push(doc.data());
+    //     }
+    //   });
 
     // requires rules version 2
     // firebase

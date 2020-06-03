@@ -24,6 +24,8 @@ export default {
     };
   },
 
+  props: ["imageID_form"],
+
   name: "CommentForm",
 
   methods: {
@@ -31,11 +33,16 @@ export default {
       let commentContent = {
         name: this.username,
         comment: this.comment,
+        commentID: (this.commentID = Math.random()),
+        imageID: this.imageID_form,
+        // imageID: this.imageID,
       };
 
       this.$emit("comment-posted", commentContent),
         (this.username = null),
-        (this.comment = null);
+        (this.comment = null),
+        (this.commentID = null),
+        (this.imageID = null);
     },
   },
 };
