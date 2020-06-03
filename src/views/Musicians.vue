@@ -5,7 +5,7 @@
     <div class="scrollbackground">
       <div class="form-group">
         <div v-for="(image, index) in images" v-bind:key="index">
-          <h1 class="imageusername">username</h1>
+          <h1 class="imageusername">{{ image.username }}</h1>
           <!-- <img
             :src="image.url"
             alt=""
@@ -90,6 +90,7 @@
 import firebase from "firebase";
 import Comments from "@/components/Comments.vue";
 import { db, storage } from "@/main";
+// import user from "@/views/MyPage.vue";
 
 export default {
   data() {
@@ -115,6 +116,8 @@ export default {
       const createdAt = new Date();
       const timestamp = createdAt.getTime();
       const uniqueFileName = timestamp + "_" + file.name;
+      // const imageID = Math.random();
+      const username = firebase.auth().currentUser.displayName;
 
       let fileRef = storageRef.child("music_videos/" + uniqueFileName);
 
@@ -124,11 +127,12 @@ export default {
         .then(url => {
           const image = {
             name: file.name,
+            username,
             url,
             createdAt,
           };
 
-          this.images.unshift({ name, url, timestamp });
+          this.images.unshift({ name, username, url, createdAt });
 
           return db.collection("images").add(image); //add
         });
@@ -207,6 +211,10 @@ export default {
           // this.images = images;
         });
     },
+
+    // getUsernames(){
+    //   db.collection("users").
+    // }
   },
 
   created() {
