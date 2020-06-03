@@ -34,12 +34,29 @@ export default {
     displayName: "",
     photoUrl: "",
   }),
+
+  methods: {
+    addUserData() {
+      const userinfo = {
+        name: this.user.displayName,
+      };
+
+      console.log(userinfo);
+
+      firebase
+        .firestore()
+        .collection("users")
+        .add(userinfo);
+    },
+  },
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.isLogin = true;
       this.user = user;
+      this.addUserData();
     });
   },
+  mounted() {},
 };
 </script>
 
