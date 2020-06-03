@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       commentList: [],
+      uniqueComments: [],
       // relatedComments(
       //       this.imageID_toComments
       //     )
@@ -46,16 +47,15 @@ export default {
         .add(commentContent);
 
       this.commentList.push(commentContent);
+      this.uniqueComments.push(commentContent);
       // this.commentList.push(name);
     },
 
     relatedComments: function(id) {
-      let uniqueComments = [];
       for (let i = 0; i < this.commentList.length; i++) {
         if (this.commentList[i]["id"] === id) {
-          uniqueComments.push(this.commentList[i]);
+          this.uniqueComments.push(this.commentList[i]);
         }
-        return uniqueComments;
       }
     },
   },
@@ -98,6 +98,10 @@ export default {
   //     return array;
   //   },
   // },
+
+  mounted() {
+    this.relatedComments(this.imageID_toComments);
+  },
 };
 </script>
 
