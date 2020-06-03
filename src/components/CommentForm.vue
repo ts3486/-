@@ -1,15 +1,17 @@
 <template>
   <div>
-    <form class="comment-form" @submit.prevent="onPost">
-      <div>
-        <br /><label for="username" class="namelabel">Username:</label>
-        <input id="name" v-model="username" required class="usernameinput" />
-        <br /><label class="commentlabel" for="comment">Comment:</label>
-        <textarea class="textarea" v-model="comment" required></textarea>
-        <br />
-        <p><input type="submit" value="Submit" class="button" /></p>
-      </div>
-    </form>
+    <div class="commentformspace">
+      <form class="comment-form" @submit.prevent="onPost">
+        <div>
+          <br /><label for="username" class="namelabel">Username:</label>
+          <input id="name" v-model="username" required class="usernameinput" />
+          <br /><label class="commentlabel" for="comment">Comment:</label>
+          <textarea class="textarea" v-model="comment" required></textarea>
+          <br />
+          <p><input type="submit" value="Submit" class="button" /></p>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -22,6 +24,8 @@ export default {
     };
   },
 
+  props: ["imageID_form"],
+
   name: "CommentForm",
 
   methods: {
@@ -29,11 +33,16 @@ export default {
       let commentContent = {
         name: this.username,
         comment: this.comment,
+        commentID: (this.commentID = Math.random()),
+        imageID: this.imageID_form,
+        // imageID: this.imageID,
       };
 
       this.$emit("comment-posted", commentContent),
         (this.username = null),
-        (this.comment = null);
+        (this.comment = null),
+        (this.commentID = null),
+        (this.imageID = null);
     },
   },
 };
@@ -139,4 +148,10 @@ export default {
   margin-left: 120px;
   border-radius: 1px;
 }
+
+// .commentformspace {
+//   display: flex;
+//   justify-content: center;
+//   padding-left: 290px;
+// }
 </style>

@@ -5,7 +5,7 @@ import Home from "../views/Home.vue";
 import Musicians from "../views/Musicians.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
-import MyPage from "../views/Mypage.vue";
+import MyPage from "../views/MyPage.vue";
 
 Vue.use(VueRouter);
 

@@ -25,6 +25,8 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const storage = firebase.storage();
+// export const FirebaseAuth = firebase.auth();
+// export const user = FirebaseAuth.getInstance().getCurrentUser();
 
 // firebaseからログイン状態を取得
 firebase.getCurrentUser = () => {

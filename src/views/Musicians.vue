@@ -5,7 +5,8 @@
     <div class="scrollbackground">
       <div class="form-group">
         <div v-for="(image, index) in images" v-bind:key="index">
-          <img
+          <h1 class="imageusername">{{ image.username }}</h1>
+          <!-- <img
             :src="image.url"
             alt=""
             width="400px"
@@ -16,18 +17,22 @@
           <button @:onclick="like(image)">いいね</button>
           <span>{{ image.like }}件</span>
 
-          <!-- <video
-          :src="image"
-          alt=""
-          width="400px"
-          height="500px"
-          class="center"
-        /> -->
+          <Comments /> -->
+
+          <video
+            :src="image.url"
+            alt=""
+            width="400px"
+            height="500px"
+            class="center"
+            controls
+          />
+          <Comments :imageID_toComments="image.id" />
         </div>
       </div>
     </div>
 
-    <v-container fluid class="ma-3">
+    <!-- <v-container fluid class="ma-3">
       <v-layout row wrap justify-center>
         <v-flex xs12 md8>
           <v-btn block class="primary">1</v-btn>
@@ -39,7 +44,7 @@
           <v-btn block class="primary">3</v-btn>
         </v-flex>
       </v-layout>
-    </v-container>
+    </v-container> -->
 
     <v-container fluid class=" ma-1 pa-1">
       <v-layout row wrap justify-center>
@@ -71,13 +76,11 @@
         dolor enim molestiae, placeat dolorem dolorum, magni iusto neque id odit
         animi soluta reiciendis cumque, ad fugiat quisquam. Eos, magni dolorem.
       </p>
-
-      <Comments />
     </v-container>
 
     <!-- <h1>Commnts</h1>
-    <div v-for="(tweet, index) in tweets" v-bind:key="index">
-      {{ tweet.text }}
+    <div v-for="(comment, index) in comments" v-bind:key="index">
+      {{ comment.text }}
     </div>
     <input type="text" v-model="inputText" />
     <button v-on:click="sendStore">Post</button> -->
@@ -88,14 +91,17 @@
 // import axios from "axios";
 import firebase from "firebase";
 import Comments from "@/components/Comments.vue";
+<<<<<<< HEAD
 import { db, storage, auth } from "@/main";
+=======
+import { db, storage } from "@/main";
+// import user from "@/views/MyPage.vue";
+>>>>>>> origin/master
 
 export default {
   data() {
     return {
       selectedFile: null,
-      inputText: "",
-      tweets: [],
       images: [],
     };
   },
@@ -116,6 +122,8 @@ export default {
       const createdAt = new Date();
       const timestamp = createdAt.getTime();
       const uniqueFileName = timestamp + "_" + file.name;
+      // const imageID = Math.random();
+      const username = firebase.auth().currentUser.displayName;
 
       let fileRef = storageRef.child("music_videos/" + uniqueFileName);
 
@@ -125,11 +133,12 @@ export default {
         .then(url => {
           const image = {
             name: file.name,
+            username,
             url,
             createdAt,
           };
 
-          this.images.unshift(url);
+          this.images.unshift({ name, username, url, createdAt });
 
           return db.collection("images").add(image); //add
         });
@@ -170,22 +179,10 @@ export default {
       //reset file input
       let defaultFile = this.$refs.currentFile;
       defaultFile.value = null;
-
-      // this.$refs.fileInput.click();
-      // const fd = new FormData();
-      // fd.append("image", this.selectedFile, this.selectedFile.name);
-      // axios
-      //   .post(
-      //     "https://us-central1-musely-7f3f3.cloudfunctions.net/helloWorld",
-      //     fd
-      //   )
-      //   .then(res => {
-      //     console.log(res);
-      //   });
     },
 
     // Comment Fucntion:
-    // sendStore: function() {s
+    // sendStore: function() {
     //   // firestore に追加
     //   firebase
     //     .firestore()
@@ -206,13 +203,14 @@ export default {
     },
     getImages() {
       db.collection("images")
-        .orderBy("createdAt")
+        // .orderBy("createdAt")
         .limit(5)
         .get()
         .then(collection => {
           this.images = collection.docs.map(doc => {
             return {
               id: doc.id,
+              // username: username.
               ...doc.data(),
             };
           });
@@ -229,6 +227,10 @@ export default {
           // this.images = images;
         });
     },
+
+    // getUsernames(){
+    //   db.collection("users").
+    // }
   },
 
   created() {
@@ -240,33 +242,19 @@ export default {
         this.user = null;
       }
     });
-    firebase
-      .firestore()
-      .collection("tweets")
-      .onSnapshot(snapshot => {
-        const docs = snapshot.docs;
-        this.tweets = [];
-        for (const doc of docs) {
-          this.tweets.push(doc.data());
-        }
-      });
 
     // firebase
-    //   .storage()
-    //   .ref("music_videos/")
-    //   .then(snapshot => {
-    //     snapshot.ref.getDownloadURL();
-    //     console.log(snapshot);
+    //   .firestore()
+    //   .collection("comments")
+    //   .onSnapshot(snapshot => {
+    //     const docs = snapshot.docs;
+    //     this.commentList = [];
+    //     for (const doc of docs) {
+    //       this.commentList.push(doc.data());
+    //     }
     //   });
-    // .then(downloadURL => {
-    //   const imageFiles = downloadURL;
-    //   this.images = [];
-    //   console.log(imageFiles);
-    //   for (const imageFile of imageFiles) {
-    //     this.images.push(imageFile.data());
-    //   }
-    // });
 
+    // requires rules version 2
     // firebase
     //   .storage()
     //   .ref("music_videos/")
@@ -297,7 +285,7 @@ export default {
   flex-direction: column;
   align-content: space-between;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 0px;
   padding: auto;
 }
 
@@ -314,6 +302,12 @@ export default {
 .scrollbackground {
   overflow: auto;
   height: 600px;
-  width: 700;
+  width: auto;
+}
+
+.imageusername {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 </style>

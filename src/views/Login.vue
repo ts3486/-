@@ -20,11 +20,6 @@
             @click:append="showPassword = !showPassword"
           ></v-text-field>
           <v-card-actions>
-            <!-- <div v-if="user">
-              <v-btn class="info" style="margin-left: auto;" @click="signOut"
-                >Logout</v-btn
-              >
-            </div> -->
             <div>
               <v-btn class="info" style="margin-left: auto;" @click="userLogin"
                 >Login</v-btn
@@ -63,6 +58,9 @@ export default {
         .then(() => {
           alert("ログイン成功");
           this.$router.push("/mypage");
+        })
+        .catch(error => {
+          alert("Error!", error.message);
         });
     },
     userLogin: function() {
@@ -72,27 +70,11 @@ export default {
         .then(() => {
           alert("ログイン成功");
           this.$router.push("/mypage");
+        })
+        .catch(error => {
+          alert("Error!", error.message);
         });
     },
-    // signOut: function() {
-    //   firebase
-    //     .auth()
-    //     .signOut()
-    //     .then(() => {
-    //       alert("Logout!");
-    //       this.$router.push("/");
-    //     });
-    // },
-  },
-  created() {
-    // firebase auth ログイン状態を確認
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user = user;
-      } else {
-        this.user = null;
-      }
-    });
   },
 };
 </script>
