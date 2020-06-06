@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="#FF7450" dark opacity="0.5">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
         <v-img
@@ -25,7 +25,7 @@
       <v-spacer></v-spacer>
 
       <div v-if="user">
-        <v-btn class="primary" @click="signOut">
+        <v-btn color="#FF7450" @click="signOut">
           <span class="mr-2">LOGOUT</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
@@ -33,7 +33,7 @@
       </div>
       <div v-else>
         <router-link to="/login">
-          <v-btn class="primary">
+          <v-btn color="#FF7450">
             <span class="mr-2">LOGIN</span>
             <v-icon class="mdi mdi-account-music"></v-icon>
             <v-icon>account-check</v-icon>
@@ -44,8 +44,8 @@
 
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
 
-    <v-navigation-drawer app v-model="drawer" class="indigo">
-      <v-list class="indigo">
+    <v-navigation-drawer app v-model="drawer" color="#FF4500">
+      <v-list color="#FF4500">
         <v-list-item
           class="text-xs-center"
           v-for="link in links"
@@ -72,7 +72,7 @@
       <router-view></router-view>
     </v-content>
 
-    <v-footer color="primary" dark padless>
+    <v-footer color="#FF7450" dark padless>
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in links"
@@ -86,7 +86,11 @@
         >
           {{ link.text }}
         </v-btn>
-        <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
+        <v-col
+          color="#FF7450"
+          class="lighten-2 py-4 text-center white--text"
+          cols="12"
+        >
           &#169; {{ new Date().getFullYear() }} chobihige
         </v-col>
       </v-row>
