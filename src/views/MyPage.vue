@@ -35,6 +35,7 @@ export default {
     photoUrl: "",
   }),
 
+
   methods: {
     addUserData() {
       const userinfo = {
@@ -49,14 +50,20 @@ export default {
         .add(userinfo);
     },
   },
+
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.isLogin = true;
       this.user = user;
+
       this.addUserData();
     });
   },
   mounted() {},
+
+    });
+  },
+
 };
 </script>
 
