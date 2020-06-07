@@ -21,7 +21,7 @@
             <video
               :src="image.url"
               alt=""
-              width="900px"
+              width="700px"
               height="500px"
               class="video"
               controls

@@ -6,6 +6,7 @@ import firebase from "firebase";
 
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
+import store from "./store";
 
 Vue.config.productionTip = false;
 
@@ -41,5 +42,6 @@ firebase.getCurrentUser = () => {
 new Vue({
   router,
   vuetify,
+  store,
   render: h => h(App),
 }).$mount("#app");
