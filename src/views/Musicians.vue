@@ -5,8 +5,9 @@
     <div class="scrollbackground">
       <div class="form-group">
         <div v-for="(image, index) in images" v-bind:key="index">
-          <h1 class="imageusername">{{ image.username }}</h1>
-          <!-- <img
+          <div class="post-container">
+            <h1 class="imageusername">{{ image.username }}</h1>
+            <!-- <img
             :src="image.url"
             alt=""
             width="400px"
@@ -17,15 +18,19 @@
 
           <Comments /> -->
 
-          <video
-            :src="image.url"
-            alt=""
-            width="400px"
-            height="500px"
-            class="center"
-            controls
-          />
-          <Comments :imageID_toComments="image.id" />
+            <video
+              :src="image.url"
+              alt=""
+              width="700px"
+              height="500px"
+              class="video"
+              controls
+            />
+
+            <button @:onclick="like(image)">いいね</button>
+            <span>{{ image.like }}件</span>
+            <Comments :imageID_toComments="image.id" />
+          </div>
         </div>
       </div>
     </div>
@@ -89,8 +94,7 @@
 // import axios from "axios";
 import firebase from "firebase";
 import Comments from "@/components/Comments.vue";
-import { db, storage } from "@/main";
-// import user from "@/views/MyPage.vue";
+import { db, storage, auth } from "@/main";
 
 export default {
   data() {
@@ -185,6 +189,17 @@ export default {
     //   this.inputText = "";
     // },
 
+    // いいね 機能
+    like(image) {
+      db.collection("images")
+        .doc(image.id)
+        .collection("likedUsers")
+        .doc(auth.currentUser.uid)
+        .set({
+          createdAt: new Date(),
+        });
+    },
+
     getImages() {
       db.collection("images")
         // .orderBy("createdAt")
@@ -264,7 +279,7 @@ export default {
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Merriweather:wght@300&display=swap");
 
-.center {
+.video {
   display: flex;
   flex-direction: column;
   align-content: space-between;
@@ -275,12 +290,12 @@ export default {
 
 .musicians {
   font-family: "Lobster", cursive;
-  font-size: 60px;
+  font-size: 50px;
   display: flex;
   justify-content: center;
   margin-top: 50px;
   padding-bottom: 30px;
-  border-bottom: 3px solid black;
+  border-bottom: 1px solid black;
 }
 
 .scrollbackground {
@@ -293,5 +308,12 @@ export default {
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  font-size: 20px;
+}
+
+.post-container {
+  margin: 100px;
+  border: 1px solid gray;
+  border-radius: 10px;
 }
 </style>
