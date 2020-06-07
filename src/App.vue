@@ -152,9 +152,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page {
-}
-
 .navbar {
   transition: 0.3s;
 }
