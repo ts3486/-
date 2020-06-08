@@ -5,23 +5,27 @@
         @click="(drawer = !drawer), background()"
       ></v-app-bar-nav-icon>
       <div class="d-flex align-center">
-        <v-img
+        <!-- <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="@/assets/musicAccelerator_logomaker.png"
           transition="scale-transition"
           width="40"
-        />
+        /> -->
 
-        <v-img
+        <h1 class="toolbartitle">
+          Music Accelerator
+        </h1>
+
+        <!-- <v-img
           alt="Vuetify Name"
           class="shrink mt-1 hidden-sm-and-down"
           contain
           min-width="100"
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
           width="100"
-        />
+        /> -->
       </div>
 
       <v-spacer></v-spacer>
@@ -46,8 +50,8 @@
 
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
 
-    <v-navigation-drawer app v-model="drawer" color="#F8F8FF" class="navbar">
-      <v-list color="#F8F8FF">
+    <v-navigation-drawer app v-model="drawer" color="#f8f8f5" class="navbar">
+      <v-list color="#f8f8f5">
         <v-list-item
           class="text-xs-center, red--text"
           v-for="link in links"
@@ -107,9 +111,10 @@ export default {
   data: () => ({
     drawer: false,
     backgroundStyle: {
-      background: "#F8F8FF",
+      background: "#f8f8f5",
       transition: "0.3s",
     },
+
     links: [
       { icon: "mdi-home", text: "Home", route: "/" },
       { icon: "mdi-music-note-plus", text: "Musicians", route: "/musicians" },
@@ -154,5 +159,9 @@ export default {
 <style lang="scss" scoped>
 .navbar {
   transition: 0.3s;
+}
+
+.toolbartitle {
+  font-family: "Lobster", cursive;
 }
 </style>
