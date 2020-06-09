@@ -5,7 +5,8 @@
     <div class="scrollbackground">
       <div class="form-group">
         <div v-for="(image, index) in images" v-bind:key="index">
-          <v-card class="post-container" color="#fcfaf6">
+          <v-card class="postContainer">
+            <!-- :class="[drawerprop ? drawerPulled : postContainer] -->
             <div class="post-container2">
               <h1 class="imageusername">
                 <v-avatar class="grey lighten-2 avatar" size="40px">
@@ -23,8 +24,8 @@
                 controls
               />
 
-              <button @:onclick="like(image)">いいね</button>
-              <span>{{ image.like }}件</span>
+              <LikeButton :imageID_toComments="image.id" />
+
               <Comments :imageID_toComments="image.id" />
             </div>
           </v-card>
@@ -64,16 +65,25 @@
 // import axios from "axios";
 import firebase from "firebase";
 import Comments from "@/components/Comments.vue";
-import { db, storage, auth } from "@/main";
+import LikeButton from "@/components/LikeButton.vue";
+import { db, storage } from "@/main";
 
 export default {
-  data() {
-    return {
-      toolbar: true,
-      selectedFile: null,
-      images: [],
-    };
-  },
+  data: () => ({
+    toolbar: true,
+    selectedFile: null,
+    images: [],
+    defaultStyle: {
+      background: "#fcfaf6",
+    },
+
+    drawer_pulledStyle: {
+      background: "#00ced1",
+    },
+  }),
+
+  props: ["drawerprop"],
+
   methods: {
     // onFileSelect(event) {
     //   this.selectedFile = event.target.file[0];
@@ -150,27 +160,6 @@ export default {
       defaultFile.value = null;
     },
 
-    // Comment Fucntion:
-    // sendStore: function() {
-    //   // firestore に追加
-    //   firebase
-    //     .firestore()
-    //     .collection("tweets")
-    //     .add({ text: this.inputText });
-    //   this.inputText = "";
-    // },
-
-    // いいね 機能
-    like(image) {
-      db.collection("images")
-        .doc(image.id)
-        .collection("likedUsers")
-        .doc(auth.currentUser.uid)
-        .set({
-          createdAt: new Date(),
-        });
-    },
-
     getImages() {
       db.collection("images")
         // .orderBy("createdAt")
@@ -243,6 +232,7 @@ export default {
 
   components: {
     Comments,
+    LikeButton,
   },
 };
 </script>
@@ -286,10 +276,14 @@ export default {
   font-family: monospace;
 }
 
-.post-container {
+.postContainer {
   margin: 80px;
-  // border: 1px solid gray;
-  // border-radius: 10px;
+  color: #fcfafa;
+}
+
+.drawerPulled {
+  margin: 80px;
+  background: #00ced1;
 }
 
 .post-container2 {

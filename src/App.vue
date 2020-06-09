@@ -75,7 +75,7 @@
     </v-navigation-drawer>
 
     <v-content>
-      <router-view></router-view>
+      <router-view :drawerprop="drawer"></router-view>
     </v-content>
 
     <v-footer color="#dc1469" dark padless>
