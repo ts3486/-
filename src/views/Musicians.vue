@@ -5,49 +5,33 @@
     <div class="scrollbackground">
       <div class="form-group">
         <div v-for="(image, index) in images" v-bind:key="index">
-          <div class="post-container">
-            <h1 class="imageusername">{{ image.username }}</h1>
-            <!-- <img
-            :src="image.url"
-            alt=""
-            width="400px"
-            height="500px"
-            class="center"
-            accept="image/*"
-          />
+          <v-card class="postContainer">
+            <!-- :class="[drawerprop ? drawerPulled : postContainer] -->
+            <div class="post-container2">
+              <h1 class="imageusername">
+                <v-avatar class="grey lighten-2 avatar" size="40px">
+                  <img src="@/assets/musicAccelerator_logomaker.png" />
+                </v-avatar>
+                {{ image.username }}
+              </h1>
 
-          <Comments /> -->
+              <video
+                :src="image.url"
+                alt=""
+                width="700px"
+                height="400px"
+                class="video"
+                controls
+              />
 
-            <video
-              :src="image.url"
-              alt=""
-              width="700px"
-              height="500px"
-              class="video"
-              controls
-            />
+              <LikeButton :imageID_toComments="image.id" />
 
-            <button @:onclick="like(image)">いいね</button>
-            <span>{{ image.like }}件</span>
-            <Comments :imageID_toComments="image.id" />
-          </div>
+              <Comments :imageID_toComments="image.id" />
+            </div>
+          </v-card>
         </div>
       </div>
     </div>
-
-    <!-- <v-container fluid class="ma-3">
-      <v-layout row wrap justify-center>
-        <v-flex xs12 md8>
-          <v-btn block class="primary">1</v-btn>
-        </v-flex>
-        <v-flex xs12 md8>
-          <v-btn block class="primary">2</v-btn>
-        </v-flex>
-        <v-flex xs12 md8>
-          <v-btn block class="primary">3</v-btn>
-        </v-flex>
-      </v-layout>
-    </v-container> -->
 
     <v-container fluid class=" ma-1 pa-1">
       <v-layout row wrap justify-center>
@@ -63,30 +47,17 @@
     <v-container fluid class="ma-5 pa-1">
       <v-layout row wrap justify-center>
         <v-flex xs12 md8>
-          <v-btn block class="primary" @click="onUpload">Upload</v-btn>
+          <v-btn
+            block
+            class="uploadButton"
+            color="primary
+          "
+            @click="onUpload"
+            >Upload Your Content!</v-btn
+          >
         </v-flex>
       </v-layout>
     </v-container>
-
-    <v-container fluid class="ma-3">
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum
-        eligendi et ipsa, id tempore voluptatem quia. Ex, vel commodi eaque quod
-        dolores consequatur veritatis numquam in cumque eius! Est, pariatur.
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio
-        dolor enim molestiae, placeat dolorem dolorum, magni iusto neque id odit
-        animi soluta reiciendis cumque, ad fugiat quisquam. Eos, magni dolorem.
-      </p>
-    </v-container>
-
-    <!-- <h1>Commnts</h1>
-    <div v-for="(comment, index) in comments" v-bind:key="index">
-      {{ comment.text }}
-    </div>
-    <input type="text" v-model="inputText" />
-    <button v-on:click="sendStore">Post</button> -->
   </div>
 </template>
 
@@ -94,15 +65,25 @@
 // import axios from "axios";
 import firebase from "firebase";
 import Comments from "@/components/Comments.vue";
-import { db, storage, auth } from "@/main";
+import LikeButton from "@/components/LikeButton.vue";
+import { db, storage } from "@/main";
 
 export default {
-  data() {
-    return {
-      selectedFile: null,
-      images: [],
-    };
-  },
+  data: () => ({
+    toolbar: true,
+    selectedFile: null,
+    images: [],
+    defaultStyle: {
+      background: "#fcfaf6",
+    },
+
+    drawer_pulledStyle: {
+      background: "#00ced1",
+    },
+  }),
+
+  props: ["drawerprop"],
+
   methods: {
     // onFileSelect(event) {
     //   this.selectedFile = event.target.file[0];
@@ -179,27 +160,6 @@ export default {
       defaultFile.value = null;
     },
 
-    // Comment Fucntion:
-    // sendStore: function() {
-    //   // firestore に追加
-    //   firebase
-    //     .firestore()
-    //     .collection("tweets")
-    //     .add({ text: this.inputText });
-    //   this.inputText = "";
-    // },
-
-    // いいね 機能
-    like(image) {
-      db.collection("images")
-        .doc(image.id)
-        .collection("likedUsers")
-        .doc(auth.currentUser.uid)
-        .set({
-          createdAt: new Date(),
-        });
-    },
-
     getImages() {
       db.collection("images")
         // .orderBy("createdAt")
@@ -272,6 +232,7 @@ export default {
 
   components: {
     Comments,
+    LikeButton,
   },
 };
 </script>
@@ -307,13 +268,37 @@ export default {
 .imageusername {
   display: flex;
   justify-content: center;
+  position: relative;
+  left: -230px;
   margin-top: 50px;
+  margin-bottom: 10px;
   font-size: 20px;
+  font-family: monospace;
 }
 
-.post-container {
-  margin: 100px;
-  border: 1px solid gray;
-  border-radius: 10px;
+.postContainer {
+  margin: 80px;
+  color: #fcfafa;
+}
+
+.drawerPulled {
+  margin: 80px;
+  background: #00ced1;
+}
+
+.post-container2 {
+  margin: auto;
+  padding: 1px;
+}
+
+.uploadButton {
+  position: relative;
+  top: -50px;
+}
+
+.avatar {
+  position: relative;
+  top: -4px;
+  left: -10px;
 }
 </style>
