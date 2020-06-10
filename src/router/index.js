@@ -53,6 +53,15 @@ const router = new VueRouter({
   routes,
 });
 
+// firebaseからログイン状態を取得
+firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};
 // ログイン認証が必要ならsinginページへ
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(recode => recode.meta.requiresAuth);
