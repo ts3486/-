@@ -124,7 +124,6 @@ export default {
       { icon: "mdi-account-box", text: "MyPage", route: "/mypage" },
       { icon: "mdi-help", text: "About", route: "/about" },
     ],
-    user: null,
   }),
   methods: {
     // userSignOut,

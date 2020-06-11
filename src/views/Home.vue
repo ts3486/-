@@ -21,10 +21,8 @@
       <v-btn
         class="loginbutton"
         color="#00ced1"
-        x-large="true"
+        x-large=""
         text-color="white"
-        :loading="loading"
-        :disabled="loading"
         router
         to="/login"
         >LOGIN <v-icon dark class="mdi mdi-account-music"></v-icon
