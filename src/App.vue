@@ -13,11 +13,9 @@
           transition="scale-transition"
           width="40"
         /> -->
-
         <h1 class="toolbartitle">
           Music Accelerator
         </h1>
-
         <!-- <v-img
           alt="Vuetify Name"
           class="shrink mt-1 hidden-sm-and-down"
@@ -31,8 +29,8 @@
       <v-spacer></v-spacer>
 
       <div v-if="$store.getters.isSignedIn">
-        <v-btn class="primary" @click="userSignOut">
-          <span class="mr-2">LOGOUT</span>
+        <v-btn color="#dc1459" @click="userSignOut">
+          <span class="mr-2">Logout</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
         </v-btn>
@@ -40,7 +38,7 @@
       <div v-else>
         <router-link to="/login">
           <v-btn color="#dc1469">
-            <span class="mr-2">LOGIN</span>
+            <span class="mr-2">Login</span>
             <v-icon class="mdi mdi-account-music"></v-icon>
             <v-icon>account-check</v-icon>
           </v-btn>
@@ -124,7 +122,6 @@ export default {
       { icon: "mdi-account-box", text: "MyPage", route: "/mypage" },
       { icon: "mdi-help", text: "About", route: "/about" },
     ],
-    user: null,
   }),
   methods: {
     // userSignOut,
@@ -136,7 +133,6 @@ export default {
           this.$router.push("/");
         });
     },
-
     background: function() {
       if (this.drawer === true) {
         this.backgroundStyle.background = "rgba(0,0,0,0.4)";

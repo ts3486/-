@@ -2,7 +2,6 @@ import Vue from "vue";
 import firebase from "firebase";
 import Vuex from "vuex";
 import { db, createDocObject } from "@/firebase";
-import "firebase/auth";
 
 Vue.use(Vuex);
 

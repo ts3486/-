@@ -69,7 +69,6 @@ import Comments from "@/components/Comments.vue";
 import LikeButton from "@/components/LikeButton.vue";
 import { db, storage } from "@/main";
 
-
 export default {
   data: () => ({
     toolbar: true,

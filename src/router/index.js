@@ -5,7 +5,7 @@ import Home from "../views/Home.vue";
 import Musicians from "../views/Musicians.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
-import MyPage from "../views/MyPage.vue";
+import MyPage from "../views/MyProfile.vue";
 import GraduationPage from "../views/GraduationPage.vue";
 import AboutWebsite from "../views/AboutWebsite.vue";
 
