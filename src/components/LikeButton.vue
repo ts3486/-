@@ -39,7 +39,7 @@ export default {
         .collection("likes")
         .onSnapshot(snapshot => {
           const docs = snapshot.docs;
-          this.likes = [];
+          // this.likes = [];
           for (const doc of docs) {
             this.likes = doc.data();
           }
