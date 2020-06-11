@@ -26,18 +26,11 @@ export default {
     addLike() {
       this.likes.likecount += 1;
 
-      if (this.likes.likecount === 0) {
-        db.collection("images")
-          .doc(this.imageID_toComments)
-          .collection("likes")
-          .add(this.likes);
-      } else {
-        db.collection("images")
-          .doc(this.imageID_toComments)
-          .collection("likes")
-          .doc("likes.id")
-          .set(this.likes);
-      }
+      db.collection("images")
+        .doc(this.imageID_toComments)
+        .collection("likes")
+        .doc("likes.id")
+        .set(this.likes);
     },
 
     getLikes() {
