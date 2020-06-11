@@ -33,12 +33,32 @@ export default {
     user: null,
     displayName: "",
     photoUrl: "",
+    totalLikes: "",
   }),
 
   methods: {
     addUserData() {
       const userinfo = {
         name: this.user.displayName,
+
+        totalLikes: firebase
+          .firestore()
+          .collection("images")
+          .onSnapshot(snapshot => {
+            //access the like collection of each image doc
+            console.log(snapshot);
+            const docs = snapshot.docs;
+            this.totalLikes = 0;
+            for (const doc of docs) {
+              if (this.name === this.user.displayName) {
+                this.totalLikes = doc
+                  .data()
+                  .collection("likes")
+                  .doc("likes.id")
+                  .get();
+              }
+            }
+          }),
       };
 
       console.log(userinfo);

@@ -6,6 +6,8 @@ import Musicians from "../views/Musicians.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
 import MyPage from "../views/MyPage.vue";
+import GraduationPage from "../views/GraduationPage.vue";
+import AboutWebsite from "../views/AboutWebsite.vue";
 
 Vue.use(VueRouter);
 
@@ -44,6 +46,16 @@ const routes = [
     name: "MyPage",
     component: MyPage,
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/graduationpage",
+    name: "GraduationPage",
+    component: GraduationPage,
+  },
+  {
+    path: "/aboutwebsite",
+    name: "AboutWebsite",
+    component: AboutWebsite,
   },
 ];
 
