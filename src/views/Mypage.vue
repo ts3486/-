@@ -6,14 +6,14 @@
         <v-col cols="12">
           <div style="text-align: center;">
             <div class="profile-image">
-              <img
-                :src="user.photoURL"
-                alt="profile-image"
-                class="center"
-                accept="image/*"
-                width="150"
-                height="150"
-              />
+              <v-avatar size="150" tile>
+                <v-img
+                  :src="user.photoURL"
+                  alt="profile-image"
+                  class="center"
+                  accept="image/*"
+                />
+              </v-avatar>
             </div>
             <div class="display-name">
               {{ userName }}
@@ -26,35 +26,65 @@
             <span class="mr-1">卒業まで残り:</span>
             <span class="mr-1">??</span>
             <div class="profile">
-              <!-- <v-subheader>profile</v-subheader> -->
-              <v-text-field multi-line label="profile"></v-text-field>
+              <v-textarea
+                disabled
+                auto-grow
+                v-model="user.description"
+              ></v-textarea>
             </div>
             <v-btn @click="showDialog">edit</v-btn>
           </div>
         </v-col>
       </v-row>
     </v-container>
+
     <!-- profile編集dialog -->
-    <v-dialog v-model="dialog" max-width="500">
+    <v-dialog v-model="dialog" max-width="600" persistent>
       <v-card>
-        <v-card-title>
-          Profile
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12">
+        <v-container>
+          <v-card-title>
+            Profile
+          </v-card-title>
+          <v-card-text>
+            <v-row justify="center" align="center">
+              <v-col cols="10">
                 <v-text-field label="name" v-model="inputName"></v-text-field>
               </v-col>
-              <v-col cols="12"> </v-col>
+              <v-col cols="8">
+                <v-col>
+                  <v-avatar size="150" tile>
+                    <v-img
+                      :src="user.photoURL"
+                      alt="profile-image"
+                      class="mx-auto"
+                      accept="image/*"
+                      v-model="inputImage"
+                    />
+                  </v-avatar>
+                </v-col>
+                <v-col>
+                  <input type="file" @change="changeFile" />
+                  <v-btn @click="updateUserImage">Update</v-btn>
+                </v-col>
+              </v-col>
+              <v-col cols="10">
+                <v-textarea
+                  auto-grow
+                  outlined
+                  label="Describe yourself"
+                  v-model="inputDescription"
+                ></v-textarea>
+              </v-col>
             </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn text @click="updateUserName">save</v-btn>
-          <v-btn text @click="closeDialog">cancel</v-btn>
-        </v-card-actions>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="primary" text @click="updateUserNameAndDescription"
+              >Save</v-btn
+            >
+            <v-btn class="primary" text @click="closeDialog">Cancel</v-btn>
+          </v-card-actions>
+        </v-container>
       </v-card>
     </v-dialog>
   </div>
@@ -62,23 +92,18 @@
 
 <script>
 // import firebase from "firebase";
-// import Dialog from "./views/dialogs/MypageProfile.vue";
+import { storage } from "@/firebase";
 
 export default {
   name: "MyPage",
   data: () => ({
-    // dialogs: {
-    //   dialog: false,
-    // },
     dialog: false,
     inputName: "",
     inputImage: null,
     name: "",
     email: "",
+    inputDescription: "",
   }),
-  // components: {
-  //   appDialog: Dialog,
-  // },
   computed: {
     user() {
       return this.$store.getters.user;
@@ -97,17 +122,39 @@ export default {
     closeDialog() {
       this.dialog = false;
     },
-    updateUserName() {
-      if (this.inputName === "") {
+    updateUserNameAndDescription() {
+      if (this.inputName === "" && this.inputDescription === "") {
         // 入力した値が空
         this.dialog = false;
       } else {
         this.$store
           .dispatch("updateUserProfile", {
             name: this.inputName,
+            description: this.inputDescription,
           })
           .then(() => {
             this.dialog = false;
+          });
+      }
+    },
+    changeFile(e) {
+      this.inputImage = e.target.files[0];
+    },
+    updateUserImage() {
+      if (!this.inputImage) {
+        // 画像が選択されていない
+      } else if (!this.user) {
+        // ログインしていない
+      } else {
+        // アップロード先を指定する
+        // ファイル名がかぶらないように、 user.id を先頭につける
+        const fileName = this.user.id + "_" + this.inputImage.name;
+        const photoRef = storage.ref("/user_photos/" + fileName);
+        photoRef
+          .put(this.inputImage)
+          .then(() => photoRef.getDownloadURL())
+          .then(photoURL => {
+            this.$store.dispatch("updateUserProfile", { photoURL });
           });
       }
     },
@@ -128,7 +175,7 @@ export default {
   border-bottom: 3px solid black;
 }
 .profile-image {
-  margin: 15px auto;
+  margin: 10px auto;
 }
 .display-name {
   font-size: 1.3rem;
@@ -137,10 +184,11 @@ export default {
 .email {
   font-size: 0.8rem;
   opacity: 0.5;
+  margin-bottom: 10px;
 }
 .profile {
-  margin: 0 auto;
-  margin-top: 15px;
+  margin: 10px auto;
   width: 50%;
+  color: black;
 }
 </style>

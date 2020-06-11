@@ -46,64 +46,6 @@ const actions = {
         });
     }
   },
-  // userSignOut: function({ commit }) {
-  //   firebase
-  //     .auth()
-  //     .signOut()
-  //     .then(() => {
-  //       // alert("Logout!");
-  //       commit("signOut");
-  //       this.$router.push("/");
-  //     });
-  // },
-  // createUser: function({ commit }, { email, password }) {
-  //   firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(
-  //       email.toString().trim(),
-  //       password.toString().trim()
-  //     )
-  //     .then(user => {
-  //       user.updateProfile({
-  //         displayName: this.displayName,
-  //       });
-  //       // alert(アカウント作成);
-  //       commit("setUser", user);
-  //       // dispatch("setUserAndProfile");
-  //       this.$router.push("/login");
-  //     })
-  //     .catch(error => {
-  //       alert("Error!", error.message);
-  //     });
-  // },
-  // userSignIn: function({ dispatch }, { email, password }) {
-  //   firebase
-  //     .auth()
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(() => {
-  //       // alert("ログイン成功");
-  //       // commit("setUser", user);
-  //       dispatch("setUserAndProfile");
-  //       this.$router.push("/mypage");
-  //     })
-  //     .catch(error => {
-  //       alert("Error!", error.message);
-  //     });
-  // },
-  // googleSignIn: function({ dispatch }) {
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   firebase
-  //     .auth()
-  //     .signInWithPopup(provider)
-  //     .then(() => {
-  //       // alert("ログイン成功");
-  //       dispatch("setUserAndProfile");
-  //       this.$router.push("/mypage");
-  //     })
-  //     .catch(error => {
-  //       alert("Error!", error.message);
-  //     });
-  // },
 };
 
 const getters = {
@@ -138,6 +80,7 @@ firebase.auth().onAuthStateChanged(user => {
             id: user.uid,
             name: user.displayName,
             photoURL: user.photoURL,
+            description: user.description,
           };
       store.dispatch("setUserAndProfile", {
         user,
