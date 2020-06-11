@@ -5,7 +5,11 @@ import Home from "../views/Home.vue";
 import Musicians from "../views/Musicians.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
+<<<<<<< HEAD
 import MyPage from "../views/MyProfile.vue";
+=======
+import MyPage from "../views/MyPage.vue";
+>>>>>>> master
 
 Vue.use(VueRouter);
 
