@@ -1,31 +1,39 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+  <v-app class="page" :style="backgroundStyle">
+    <v-app-bar app color="#dc1469" dark opacity="0.5" height="80px">
+      <v-app-bar-nav-icon
+        @click="(drawer = !drawer), background()"
+      ></v-app-bar-nav-icon>
       <div class="d-flex align-center">
-        <v-img
+        <!-- <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="@/assets/musicAccelerator_logomaker.png"
           transition="scale-transition"
           width="40"
-        />
+        /> -->
 
-        <v-img
+        <h1 class="toolbartitle">
+          Music Accelerator
+        </h1>
+
+        <!-- <v-img
           alt="Vuetify Name"
           class="shrink mt-1 hidden-sm-and-down"
           contain
           min-width="100"
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
           width="100"
-        />
+        /> -->
       </div>
 
       <v-spacer></v-spacer>
 
+
       <div v-if="$store.getters.isSignedIn">
         <v-btn class="primary" @click="userSignOut">
+
           <span class="mr-2">LOGOUT</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
@@ -33,7 +41,7 @@
       </div>
       <div v-else>
         <router-link to="/login">
-          <v-btn class="primary">
+          <v-btn color="#dc1469">
             <span class="mr-2">LOGIN</span>
             <v-icon class="mdi mdi-account-music"></v-icon>
             <v-icon>account-check</v-icon>
@@ -44,10 +52,10 @@
 
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
 
-    <v-navigation-drawer app v-model="drawer" class="indigo">
-      <v-list class="indigo">
+    <v-navigation-drawer app v-model="drawer" color="#f8f8f5" class="navbar">
+      <v-list color="#f8f8f5">
         <v-list-item
-          class="text-xs-center"
+          class="text-xs-center, red--text"
           v-for="link in links"
           :key="link.text"
           router
@@ -57,10 +65,10 @@
           }"
         >
           <v-list-item-action>
-            <v-icon class="white--text">{{ link.icon }}</v-icon>
+            <v-icon class="black--text">{{ link.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title class="white--text">
+            <v-list-item-title class="black--text">
               {{ link.text }}
             </v-list-item-title>
           </v-list-item-content>
@@ -69,10 +77,10 @@
     </v-navigation-drawer>
 
     <v-content>
-      <router-view></router-view>
+      <router-view :drawerprop="drawer"></router-view>
     </v-content>
 
-    <v-footer color="primary" dark padless>
+    <v-footer color="#dc1469" dark padless>
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in links"
@@ -86,7 +94,11 @@
         >
           {{ link.text }}
         </v-btn>
-        <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
+        <v-col
+          color="#FF7450"
+          class="lighten-2 py-4 text-center white--text"
+          cols="12"
+        >
           &#169; {{ new Date().getFullYear() }} chobihige
         </v-col>
       </v-row>
@@ -102,6 +114,11 @@ export default {
   name: "App",
   data: () => ({
     drawer: false,
+    backgroundStyle: {
+      background: "#f8f8f5",
+      transition: "0.3s",
+    },
+
     links: [
       { icon: "mdi-home", text: "Home", route: "/" },
       { icon: "mdi-music-note-plus", text: "Musicians", route: "/musicians" },
@@ -121,6 +138,14 @@ export default {
           this.$router.push("/");
         });
     },
+
+    background: function() {
+      if (this.drawer === true) {
+        this.backgroundStyle.background = "rgba(0,0,0,0.4)";
+      } else {
+        this.backgroundStyle.background = "#F8F8FF";
+      }
+    },
   },
   computed: {
     user() {
@@ -132,3 +157,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.navbar {
+  transition: 0.3s;
+}
+
+.toolbartitle {
+  font-family: "Lobster", cursive;
+}
+</style>
