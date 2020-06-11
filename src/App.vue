@@ -1,6 +1,6 @@
 <template>
   <v-app class="page" :style="backgroundStyle">
-    <v-app-bar app color="#dc1469" dark opacity="0.5" height="80px">
+    <v-app-bar class="topnavbar" app color="#c61469" dark height="80px">
       <v-app-bar-nav-icon
         @click="(drawer = !drawer), background()"
       ></v-app-bar-nav-icon>
@@ -80,7 +80,7 @@
       <router-view :drawerprop="drawer"></router-view>
     </v-content>
 
-    <v-footer color="#dc1469" dark padless>
+    <v-footer class="footer" color="#c61469" dark padless>
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in links"
@@ -165,5 +165,13 @@ export default {
 
 .toolbartitle {
   font-family: "Lobster", cursive;
+}
+
+.topnavbar {
+  opacity: 90%;
+}
+
+.footer {
+  opacity: 90%;
 }
 </style>
