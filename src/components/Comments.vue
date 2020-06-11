@@ -41,9 +41,16 @@ export default {
   methods: {
     addComment(commentContent) {
       // firestore に追加
+      // firebase
+      //   .firestore()
+      //   .collection("comments")
+      //   .add(commentContent);
+
       firebase
         .firestore()
-        .collection("comments")
+        .collection("images")
+        .doc(this.imageID_toComments)
+        .collection("uniqueComments")
         .add(commentContent);
 
       this.commentList.push(commentContent);
@@ -51,13 +58,13 @@ export default {
       // this.commentList.push(name);
     },
 
-    relatedComments: function(id) {
-      for (let i = 0; i < this.commentList.length; i++) {
-        if (this.commentList[i]["id"] === id) {
-          this.uniqueComments.push(this.commentList[i]);
-        }
-      }
-    },
+    // relatedComments: function(id) {
+    //   for (let i = 0; i < this.commentList.length; i++) {
+    //     if (this.commentList[i]["imageID"] === id) {
+    //       this.uniqueComments.push(this.commentList[i]);
+    //     }
+    //   }
+    // },
   },
 
   components: {
@@ -65,16 +72,17 @@ export default {
   },
 
   created() {
-    firebase
-      .firestore()
-      .collection("comments")
-      .onSnapshot(snapshot => {
-        const docs = snapshot.docs;
-        this.commentList = [];
-        for (const doc of docs) {
-          this.commentList.push(doc.data());
-        }
-      });
+    // firebase
+    //   .firestore()
+    //   .collection("comments")
+    //   .onSnapshot(snapshot => {
+    //     const docs = snapshot.docs;
+    //     this.commentList = [];
+    //     for (const doc of docs) {
+    //       this.commentList.push(doc.data());
+    //     }
+    //   });
+    // this.relatedComments(this.imageID_toComments);
     // .get()
     // .then(collection => {
     //   this.commentList = collection.docs.map(doc => {
@@ -85,6 +93,18 @@ export default {
     //     };
     //   });
     // });
+    firebase
+      .firestore()
+      .collection("images")
+      .doc(this.imageID_toComments)
+      .collection("uniqueComments")
+      .onSnapshot(snapshot => {
+        const docs = snapshot.docs;
+        this.uniqueComments = [];
+        for (const doc of docs) {
+          this.uniqueComments.push(doc.data());
+        }
+      });
   },
 
   // computed: {
@@ -99,9 +119,7 @@ export default {
   //   },
   // },
 
-  mounted() {
-    this.relatedComments(this.imageID_toComments);
-  },
+  mounted() {},
 };
 </script>
 
