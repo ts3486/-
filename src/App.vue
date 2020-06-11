@@ -30,8 +30,10 @@
 
       <v-spacer></v-spacer>
 
-      <div v-if="user">
-        <v-btn color="#dc1469" @click="signOut">
+
+      <div v-if="$store.getters.isSignedIn">
+        <v-btn class="primary" @click="userSignOut">
+
           <span class="mr-2">LOGOUT</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
@@ -105,7 +107,9 @@
 </template>
 
 <script>
+// import { userSignOut } from "@/firebase";
 import firebase from "firebase";
+
 export default {
   name: "App",
   data: () => ({
@@ -125,12 +129,12 @@ export default {
     user: null,
   }),
   methods: {
-    signOut: function() {
+    // userSignOut,
+    userSignOut: function() {
       firebase
         .auth()
         .signOut()
         .then(() => {
-          alert("Logout!");
           this.$router.push("/");
         });
     },
@@ -143,15 +147,13 @@ export default {
       }
     },
   },
-  created() {
-    // firebase auth ログイン状態を確認
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user = user;
-      } else {
-        this.user = null;
-      }
-    });
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+    userProfile() {
+      return this.$store.getters.userProfile;
+    },
   },
 };
 </script>
