@@ -89,8 +89,12 @@
 // import axios from "axios";
 import firebase from "firebase";
 import Comments from "@/components/Comments.vue";
+<<<<<<< HEAD
+import { db, storage } from "@/firebase";
+=======
 import { db, storage } from "@/main";
 // import user from "@/views/MyPage.vue";
+>>>>>>> master
 
 export default {
   data() {

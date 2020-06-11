@@ -5,21 +5,22 @@
         <h2>Signup</h2>
       </v-card-title>
       <v-card-text>
-        <v-form>
+        <v-form v-model="valid">
           <v-text-field
+            type="email"
             prepend-icon="mdi-email"
             label="email"
             v-model="email"
+            :rules="emailRules"
           ></v-text-field>
           <v-text-field
-            :type="text"
             prepend-icon="mdi-lock"
             label="password"
             v-model="password"
+            :rules="passwordRules"
           ></v-text-field>
           <!-- username追加 -->
           <v-text-field
-            :type="text"
             prepend-icon="mdi-account"
             label="user name"
             v-model="displayName"
@@ -40,32 +41,60 @@
 
 <script>
 import firebase from "firebase";
+// import { createUserAccount } from "@/firebase";
 
 export default {
   name: "SignUp",
-  data: () => ({
-    email: "",
-    password: "",
-    name: "",
-  }),
+  data() {
+    return {
+      valid: false,
+      email: "",
+      password: "",
+      displayName: "",
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid",
+      ],
+      passwordRules: [
+        v => !!v || "Password is required",
+        v => v.length >= 6 || "Password must be greater than 6 characters",
+      ],
+    };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+    userProfile() {
+      return this.$store.getters.userProfile;
+    },
+  },
   methods: {
     createUserAccount: function() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(created => {
-          alert("アカウント作成");
-          this.$router.push("/login");
-          // ユーザーの表示名
-          const newUser = created.user;
-          newUser.updateProfile({
-            displayName: this.displayName,
-            photoURL: "",
-          });
+          created.user
+            .updateProfile({
+              displayName: this.displayName,
+            })
+            .then(() => {
+              this.$router.push("/login");
+            });
         })
         .catch(error => {
           alert("Error!", error.message);
         });
+      // createUserAccount,
+      // createUserAccount: function() {
+      //   this.$store.dispatch("createUser", {
+      //     name: this.displayName,
+      //     email: this.email,
+      //     password: this.password,
+      //   });
+      //   this.$store.dispatch("updateUserProfile", { name: this.displayName });
+      // },
     },
   },
 };

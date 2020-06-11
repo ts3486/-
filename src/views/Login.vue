@@ -5,11 +5,13 @@
         <h2>Login</h2>
       </v-card-title>
       <v-card-text>
-        <v-form>
+        <v-form v-model="valid">
           <v-text-field
+            type="email"
             prepend-icon="mdi-email"
             label="email"
             v-model="email"
+            :rules="emailRules"
           ></v-text-field>
           <v-text-field
             :type="showPassword ? 'text' : 'password'"
@@ -17,6 +19,7 @@
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             label="password"
             v-model="password"
+            :rules="passwordRules"
             @click:append="showPassword = !showPassword"
           ></v-text-field>
           <v-card-actions>
@@ -39,24 +42,44 @@
 </template>
 
 <script>
+// import { googleLogin, userLogin } from "@/firebase";
 import firebase from "firebase";
 
 export default {
   name: "Login",
-  data: () => ({
-    showPassword: false,
-    user: null,
-    email: "",
-    password: "",
-  }),
+  data() {
+    return {
+      valid: false,
+      showPassword: false,
+      email: "",
+      password: "",
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid",
+      ],
+      passwordRules: [
+        v => !!v || "Password is required",
+        v => v.length >= 6 || "Password must be greater than 6 characters",
+      ],
+    };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+    userProfile() {
+      return this.$store.getters.userProfile;
+    },
+  },
   methods: {
+    // googleLogin,
+    // userLogin,
     googleLogin: function() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
         .signInWithPopup(provider)
         .then(() => {
-          alert("ログイン成功");
           this.$router.push("/mypage");
         })
         .catch(error => {
@@ -68,13 +91,21 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          alert("ログイン成功");
           this.$router.push("/mypage");
         })
         .catch(error => {
           alert("Error!", error.message);
         });
     },
+    //   userLogin: function() {
+    //     this.$store.dispatch("userSignIn", {
+    //       email: this.email,
+    //       password: this.password,
+    //     });
+    //   },
+    //   googleLogin: function() {
+    //     this.$store.dispatch("googleSignIn");
+    //   },
   },
 };
 </script>
