@@ -1,5 +1,5 @@
 <template>
-  <div class="mypage">
+  <div class="myprofile">
     <v-container>
       <h1 class="head">Profile</h1>
       <v-row align="center" justify="center">
@@ -95,7 +95,7 @@
 import { storage } from "@/firebase";
 
 export default {
-  name: "MyPage",
+  name: "MyProfile",
   data: () => ({
     dialog: false,
     inputName: "",

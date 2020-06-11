@@ -17,11 +17,12 @@
     </p>
 
     <v-container class="homebuttons">
-      <!-- <v-button class="musicianbutton">Musicians</v-button> -->
+      <!-- <v-button class="musicianbutton">Musicians</v-button> :loading="loading"
+        :disabled="loading"-->
       <v-btn
         class="loginbutton"
         color="#00ced1"
-        x-large=""
+        x-large
         text-color="white"
         router
         to="/login"
@@ -39,8 +40,9 @@ export default {
   data: () => ({
     toolbar: false,
     backgroundStyle: {
-      background: "#dc1469",
+      background: "#c61469",
       transition: "0.3s",
+      opacity: "90%",
     },
   }),
 };
@@ -100,5 +102,6 @@ export default {
   border-radius: 5px;
   font-size: 30px;
   font-weight: 100px;
+  opacity: 90%;
 }
 </style>

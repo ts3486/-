@@ -20,12 +20,26 @@ export default {
     };
   },
 
+  watch: {
+    likes: function(val) {
+      if (val.likecount >= 10000) {
+        this.graduate();
+      }
+    },
+  },
+
   props: ["imageID_toComments"],
 
   methods: {
     addLike() {
       this.likes.likecount += 1;
 
+      // if (this.likes.likecount === 0) {
+      //   db.collection("images")
+      //     .doc(this.imageID_toComments)
+      //     .collection("likes")
+      //     .add(this.likes);
+      // } else {}
       db.collection("images")
         .doc(this.imageID_toComments)
         .collection("likes")
@@ -39,16 +53,15 @@ export default {
         .collection("likes")
         .onSnapshot(snapshot => {
           const docs = snapshot.docs;
-          // this.likes = [];
+          // this.likes = {};
           for (const doc of docs) {
             this.likes = doc.data();
           }
         });
-      // .doc("likes.id")
-      // .get("likecount")
-      // .then(likenumber => {
-      //   (this.likes = []), (this.likes.likecount = likenumber);
-      // });
+    },
+
+    graduate() {
+      this.$router.push("/graduationpage");
     },
   },
 
@@ -62,7 +75,7 @@ export default {
 .likebutton {
   display: flex;
   position: relative;
-  justify-content: center;
+  left: -300px;
   margin: auto;
   padding: auto;
   bottom: -20px;

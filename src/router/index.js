@@ -5,7 +5,9 @@ import Home from "../views/Home.vue";
 import Musicians from "../views/Musicians.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
-import MyPage from "../views/MyPage.vue";
+import MyProfile from "../views/MyProfile.vue";
+import GraduationPage from "../views/GraduationPage.vue";
+import AboutWebsite from "../views/AboutWebsite.vue";
 
 Vue.use(VueRouter);
 
@@ -40,10 +42,20 @@ const routes = [
     component: SignUp,
   },
   {
-    path: "/mypage",
-    name: "MyPage",
-    component: MyPage,
+    path: "/myprofile",
+    name: "MyProfile",
+    component: MyProfile,
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/graduationpage",
+    name: "GraduationPage",
+    component: GraduationPage,
+  },
+  {
+    path: "/aboutwebsite",
+    name: "AboutWebsite",
+    component: AboutWebsite,
   },
 ];
 
