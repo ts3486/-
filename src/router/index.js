@@ -9,7 +9,6 @@ import MyPage from "../views/MyPage.vue";
 import GraduationPage from "../views/GraduationPage.vue";
 import AboutWebsite from "../views/AboutWebsite.vue";
 
-
 Vue.use(VueRouter);
 
 const routes = [
