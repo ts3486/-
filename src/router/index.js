@@ -5,7 +5,11 @@ import Home from "../views/Home.vue";
 import Musicians from "../views/Musicians.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
+<<<<<<< HEAD
+import MyPage from "../views/MyProfile.vue";
+=======
 import MyPage from "../views/MyPage.vue";
+>>>>>>> master
 
 Vue.use(VueRouter);
 
@@ -53,6 +57,15 @@ const router = new VueRouter({
   routes,
 });
 
+// firebaseからログイン状態を取得
+firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};
 // ログイン認証が必要ならsinginページへ
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(recode => recode.meta.requiresAuth);

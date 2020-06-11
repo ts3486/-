@@ -2,13 +2,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
-import firebase from "firebase";
+import store from "./store";
 
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import store from "./store";
 
 Vue.config.productionTip = false;
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnx--XbW1BEWJf58zXC7Mo9mI0KZt6oqw",
@@ -39,8 +40,10 @@ firebase.getCurrentUser = () => {
   });
 };
 
+
 new Vue({
   router,
+  store,
   vuetify,
   store,
   render: h => h(App),
