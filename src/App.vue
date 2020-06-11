@@ -30,10 +30,8 @@
 
       <v-spacer></v-spacer>
 
-
       <div v-if="$store.getters.isSignedIn">
         <v-btn class="primary" @click="userSignOut">
-
           <span class="mr-2">LOGOUT</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
