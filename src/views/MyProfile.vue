@@ -32,7 +32,7 @@
                 v-model="user.description"
               ></v-textarea>
             </div>
-            <v-btn @click="showDialog">edit</v-btn>
+            <v-btn @click="showDialog">Edit</v-btn>
           </div>
         </v-col>
       </v-row>
@@ -63,8 +63,8 @@
                   </v-avatar>
                 </v-col>
                 <v-col>
-                  <input type="file" @change="changeFile" />
-                  <v-btn @click="updateUserImage">Update</v-btn>
+                  <input type="file" @change="changeFile" value="Choose file" />
+                  <!-- <v-btn @click="updateUserImage">Update</v-btn> -->
                 </v-col>
               </v-col>
               <v-col cols="10">
@@ -91,7 +91,6 @@
 </template>
 
 <script>
-// import firebase from "firebase";
 import { storage } from "@/firebase";
 
 export default {
@@ -139,12 +138,8 @@ export default {
     },
     changeFile(e) {
       this.inputImage = e.target.files[0];
-    },
-    updateUserImage() {
       if (!this.inputImage) {
         // 画像が選択されていない
-      } else if (!this.user) {
-        // ログインしていない
       } else {
         // アップロード先を指定する
         // ファイル名がかぶらないように、 user.id を先頭につける
@@ -157,6 +152,22 @@ export default {
             this.$store.dispatch("updateUserProfile", { photoURL });
           });
       }
+    },
+    updateUserImage() {
+      // if (!this.inputImage) {
+      //   // 画像が選択されていない
+      // } else {
+      //   // アップロード先を指定する
+      //   // ファイル名がかぶらないように、 user.id を先頭につける
+      //   const fileName = this.user.id + "_" + this.inputImage.name;
+      //   const photoRef = storage.ref("/user_photos/" + fileName);
+      //   photoRef
+      //     .put(this.inputImage)
+      //     .then(() => photoRef.getDownloadURL())
+      //     .then(photoURL => {
+      //       this.$store.dispatch("updateUserProfile", { photoURL });
+      //     });
+      // }
     },
   },
 };

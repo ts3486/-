@@ -5,7 +5,7 @@ import Home from "../views/Home.vue";
 import Musicians from "../views/Musicians.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
-import MyProfile from "../views/MyProfile.vue";
+import MyPage from "../views/MyProfile.vue";
 import GraduationPage from "../views/GraduationPage.vue";
 import AboutWebsite from "../views/AboutWebsite.vue";
 
@@ -44,7 +44,7 @@ const routes = [
   {
     path: "/myprofile",
     name: "MyProfile",
-    component: MyProfile,
+    component: MyPage,
     meta: { requiresAuth: true },
   },
   {
