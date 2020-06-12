@@ -22,7 +22,7 @@
               <v-flex>{{ user.email }}</v-flex>
             </div>
             <v-icon class="mr-1">mdi-heart</v-icon>
-            <span class="mr-2">100</span>
+            <span class="mr-2">{{ totalLikes }}</span>
             <span class="mr-1">卒業まで残り:</span>
             <span class="mr-1">??</span>
             <div class="profile">
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { storage } from "@/firebase";
+import { db, storage } from "@/firebase";
 
 export default {
   name: "MyPage",
@@ -102,6 +102,8 @@ export default {
     name: "",
     email: "",
     inputDescription: "",
+    totalLikes: 0,
+    likesArray: [],
   }),
   computed: {
     user() {
@@ -169,6 +171,41 @@ export default {
       //     });
       // }
     },
+
+    // myFunc(total, num) {
+    //   return total + num;
+    // },
+
+    //いいね数集計関数 (tao)
+    getTotalLikes() {
+      this.likesArray = [];
+
+      db.collection("images").onSnapshot(snapshot => {
+        //access the like collection of each image doc
+        const docs = snapshot.docs;
+
+        for (const doc of docs) {
+          if (this.user.displayName === doc.get("username")) {
+            // console.log(doc.get("username"));
+            // console.log(doc.id);
+
+            db.collection("images")
+              .doc(doc.id)
+              .collection("likes")
+              .doc("likes.id")
+              .get()
+              .then(likenumber => {
+                // this.likesArray.push(likenumber.data());
+                this.totalLikes += likenumber.data().likecount;
+              });
+          }
+        }
+      });
+    },
+  },
+
+  created() {
+    this.getTotalLikes();
   },
 };
 </script>
