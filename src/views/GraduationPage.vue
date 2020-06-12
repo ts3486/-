@@ -27,11 +27,9 @@ export default {
 }
 
 .graduationimage {
-  display: flex;
   position: absolute;
-  justify-content: center;
+  height: 500px;
   width: 800px;
-  top: -135px;
   right: 160px;
 }
 
