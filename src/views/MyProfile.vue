@@ -105,6 +105,15 @@ export default {
     totalLikes: 0,
     likesArray: [],
   }),
+
+  watch: {
+    totalLikes: function() {
+      if (this.totalLikes >= 1000) {
+        this.graduate();
+      }
+    },
+  },
+
   computed: {
     user() {
       return this.$store.getters.user;
@@ -201,6 +210,10 @@ export default {
           }
         }
       });
+    },
+
+    graduate() {
+      this.$router.push("/graduationpage");
     },
   },
 
