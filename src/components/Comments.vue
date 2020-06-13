@@ -102,7 +102,9 @@ export default {
         const docs = snapshot.docs;
         this.uniqueComments = [];
         for (const doc of docs) {
-          this.uniqueComments.push(doc.data());
+          if (doc.exists) {
+            this.uniqueComments.push(doc.data());
+          }
         }
       });
   },

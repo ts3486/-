@@ -2,6 +2,14 @@
   <v-app class="home" :style="backgroundStyle">
     <v-img
       alt="MA_Logo"
+      class="homescreen"
+      contain=""
+      src="@/assets/home.jpg"
+      width="10000"
+    />
+
+    <v-img
+      alt="MA_Logo"
       class="logo"
       contain=""
       src="@/assets/musicAccelerator_logomaker.png"
@@ -20,13 +28,23 @@
       <!-- <v-button class="musicianbutton">Musicians</v-button> :loading="loading"
         :disabled="loading"-->
       <v-btn
-        class="loginbutton"
+        class="listenerbutton"
         color="#00ced1"
         x-large
         text-color="white"
         router
-        to="/login"
-        >LOGIN <v-icon dark class="mdi mdi-account-music"></v-icon
+        to="/aboutwebsitelistener"
+        >LISTENER <v-icon dark class="mdi mdi-account-music"></v-icon
+      ></v-btn>
+
+      <v-btn
+        class="artistbutton"
+        color="#00ced1"
+        x-large
+        text-color="white"
+        router
+        to="/aboutwebsiteartist"
+        >ARTIST<v-icon dark class="mdi mdi-account-music"></v-icon
       ></v-btn>
     </v-container>
   </v-app>
@@ -77,6 +95,10 @@ export default {
   top: -170px;
 }
 
+.homescreen {
+  position: absolute;
+}
+
 .homebuttons {
   width: 300px;
   font-size: 40px;
@@ -92,15 +114,30 @@ export default {
   margin: auto;
   color: white;
 }
-.loginbutton {
-  margin: auto;
+.listenerbutton {
+  margin: 20px;
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-right: 25px;
   padding-left: 25px;
   border-radius: 5px;
-  font-size: 30px;
+  font-size: 20px;
+  font-weight: 100px;
+  opacity: 90%;
+  position: relative;
+  left: -20px;
+}
+
+.artistbutton {
+  margin: 20px;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 25px;
+  padding-left: 25px;
+  border-radius: 5px;
+  font-size: 20px;
   font-weight: 100px;
   opacity: 90%;
 }
