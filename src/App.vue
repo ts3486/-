@@ -103,7 +103,6 @@
 </template>
 
 <script>
-// import { userSignOut } from "@/firebase";
 import firebase from "firebase";
 
 export default {
@@ -124,7 +123,6 @@ export default {
     ],
   }),
   methods: {
-    // userSignOut,
     userSignOut: function() {
       firebase
         .auth()

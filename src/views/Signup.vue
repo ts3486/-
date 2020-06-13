@@ -41,7 +41,6 @@
 
 <script>
 import firebase from "firebase";
-// import { createUserAccount } from "@/firebase";
 
 export default {
   name: "SignUp",
@@ -86,15 +85,6 @@ export default {
         .catch(error => {
           alert("Error!", error.message);
         });
-      // createUserAccount,
-      // createUserAccount: function() {
-      //   this.$store.dispatch("createUser", {
-      //     name: this.displayName,
-      //     email: this.email,
-      //     password: this.password,
-      //   });
-      //   this.$store.dispatch("updateUserProfile", { name: this.displayName });
-      // },
     },
   },
 };
