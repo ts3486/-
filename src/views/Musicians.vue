@@ -10,9 +10,17 @@
             <div class="post-container2">
               <h1 class="imageusername">
                 <v-avatar class="grey lighten-2 avatar" size="40px">
-                  <img src="@/assets/musicAccelerator_logomaker.png" />
+                  <!-- <img src="@/assets/musicAccelerator_logomaker.png" /> -->
+                  <v-img>
+                    <v-img
+                      :src="user.photoURL"
+                      alt="profile-image"
+                      class="center"
+                      accept="image/*"
+                    />
+                  </v-img>
                 </v-avatar>
-                {{ image.username }}
+                {{ user.name }}
               </h1>
 
               <video
@@ -85,6 +93,18 @@ export default {
 
   props: ["drawerprop"],
 
+  // computed: {
+  //   user() {
+  //     return this.$store.getters.user;
+  //   },
+  //   userName() {
+  //     return this.user.name || this.user.displayName;
+  //   },
+  //   // userProfile() {
+  //   //   return this.$store.getters.userProfile;
+  //   // },
+  // },
+
   methods: {
     // onFileSelect(event) {
     //   this.selectedFile = event.target.file[0];
@@ -103,7 +123,8 @@ export default {
       const timestamp = createdAt.getTime();
       const uniqueFileName = timestamp + "_" + file.name;
       // const imageID = Math.random();
-      const username = firebase.auth().currentUser.displayName;
+      const userName = firebase.auth().currentUser.displayName;
+      const postUserId = firebase.auth().currentUser.uid;
 
       let fileRef = storageRef.child("music_videos/" + uniqueFileName);
 
@@ -113,54 +134,32 @@ export default {
         .then(url => {
           const image = {
             name: file.name,
-            username,
+            userName,
             url,
             createdAt,
+            postUserId,
           };
 
-          this.images.unshift({ name, username, url, createdAt });
+          this.images.unshift({ name, userName, url, createdAt, postUserId });
 
           return db.collection("images").add(image); //add
         });
-
-      // let uploadTask = storageRef.put(file);
-
-      //UploadTask Version
-      // uploadTask.on(
-      //   "state_changed",
-      //   snapshot => {
-      //     // Observe state change events such as progress, pause, and resume
-      //     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-      //     var progress =
-      //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //     console.log("Upload is " + progress + "% done");
-      //     switch (snapshot.state) {
-      //       case firebase.storage.TaskState.PAUSED: // or 'paused'
-      //         console.log("Upload is paused");
-      //         break;
-      //       case firebase.storage.TaskState.RUNNING: // or 'running'
-      //         console.log("Upload is running");
-      //         break;
-      //     }
-      //   },
-      //   () => {
-      //     // Handle unsuccessful uploads
-      //   },
-      //   () => {
-      //     // Handle successful uploads on complete
-      //     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-      //     uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-      //       this.images.push(downloadURL);
-      //       console.log("File available at", downloadURL);
-      //     });
-      //   }
-      // );
-
       //reset file input
       let defaultFile = this.$refs.currentFile;
       defaultFile.value = null;
     },
-
+    // getName() {
+    //   db.collection("images")
+    //     .get()
+    //     .then(collection => {
+    //       this.userName = collection.docs.map(doc => {
+    //         return {
+    //           id: doc.id,
+    //           ...doc.data(),
+    //         };
+    //       });
+    //     });
+    // },
     getImages() {
       db.collection("images")
         // .orderBy("createdAt")
@@ -174,20 +173,8 @@ export default {
               ...doc.data(),
             };
           });
-          // 上は下のコードと同じ意味
-          // map については Array.prototype.map で調べてみてください
-          //
-          // const images = [];
-          // for (const doc of collection.docs) {
-          //   images.push({
-          //     id: doc.id,
-          //     ...doc.data()
-          //   });
-          // }
-          // this.images = images;
         });
     },
-
     // getUsernames(){
     //   db.collection("users").
     // }
@@ -202,7 +189,6 @@ export default {
         this.user = null;
       }
     });
-
     // firebase
     //   .firestore()
     //   .collection("comments")
@@ -213,7 +199,6 @@ export default {
     //       this.commentList.push(doc.data());
     //     }
     //   });
-
     // requires rules version 2
     // firebase
     //   .storage()

@@ -42,7 +42,6 @@
 </template>
 
 <script>
-// import { googleLogin, userLogin } from "@/firebase";
 import firebase from "firebase";
 
 export default {
@@ -72,8 +71,6 @@ export default {
     },
   },
   methods: {
-    // googleLogin,
-    // userLogin,
     googleLogin: function() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
@@ -97,15 +94,6 @@ export default {
           alert("Error!", error.message);
         });
     },
-    //   userLogin: function() {
-    //     this.$store.dispatch("userSignIn", {
-    //       email: this.email,
-    //       password: this.password,
-    //     });
-    //   },
-    //   googleLogin: function() {
-    //     this.$store.dispatch("googleSignIn");
-    //   },
   },
 };
 </script>
