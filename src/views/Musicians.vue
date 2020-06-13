@@ -95,6 +95,10 @@ export default {
     onUpload(event) {
       this.$refs.currentFile.click();
 
+      if (!event.target.files) {
+        return;
+      }
+
       let file = event.target.files[0];
 
       const storageRef = storage.ref();
@@ -163,8 +167,6 @@ export default {
 
     getImages() {
       db.collection("images")
-        // .orderBy("createdAt")
-        .limit(5)
         .get()
         .then(collection => {
           this.images = collection.docs.map(doc => {

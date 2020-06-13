@@ -7,7 +7,8 @@ import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
 import MyPage from "../views/MyProfile.vue";
 import GraduationPage from "../views/GraduationPage.vue";
-import AboutWebsite from "../views/AboutWebsite.vue";
+import AboutWebsiteArtist from "../views/AboutWebsiteArtist.vue";
+import AboutWebsiteListener from "../views/AboutWebsiteListener.vue";
 
 Vue.use(VueRouter);
 
@@ -53,9 +54,15 @@ const routes = [
     component: GraduationPage,
   },
   {
-    path: "/aboutwebsite",
-    name: "AboutWebsite",
-    component: AboutWebsite,
+    path: "/aboutwebsiteartist",
+    name: "AboutWebsiteArtist",
+    component: AboutWebsiteArtist,
+  },
+
+  {
+    path: "/aboutwebsitelistener",
+    name: "AboutWebsiteListner",
+    component: AboutWebsiteListener,
   },
 ];
 

@@ -52,6 +52,7 @@
       <v-list color="#f8f8f5">
         <v-list-item
           class="text-xs-center, red--text"
+          @click="(drawer = !drawer), background()"
           v-for="link in links"
           :key="link.text"
           router
@@ -73,6 +74,7 @@
     </v-navigation-drawer>
 
     <v-content>
+      <div v-if="drawer" class="shadowbox"></div>
       <router-view :drawerprop="drawer"></router-view>
     </v-content>
 
@@ -135,7 +137,7 @@ export default {
     },
     background: function() {
       if (this.drawer === true) {
-        this.backgroundStyle.background = "rgba(0,0,0,0.4)";
+        this.backgroundStyle.background = "#F8F8FF";
       } else {
         this.backgroundStyle.background = "#F8F8FF";
       }
@@ -167,5 +169,16 @@ export default {
 
 .footer {
   opacity: 90%;
+}
+
+.shadowbox {
+  position: absolute;
+  // background: ("rgba(0,0,0,1)");("rgba(0,0,0,1)");
+  background: rgb(45, 48, 56);
+  opacity: 70%;
+  z-index: 100;
+  height: 1000px;
+  width: 1300px;
+  transition: 0.3s;
 }
 </style>
