@@ -125,11 +125,7 @@ export default {
     user: null,
   }),
   methods: {
-<<<<<<< HEAD
-    userSignOut: function() {
-=======
     signOut: function() {
->>>>>>> master
       firebase
         .auth()
         .signOut()
