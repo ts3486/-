@@ -42,8 +42,8 @@ const routes = [
     component: SignUp,
   },
   {
-    path: "/mypage",
-    name: "MyPage",
+    path: "/myprofile",
+    name: "MyProfile",
     component: MyPage,
     meta: { requiresAuth: true },
   },

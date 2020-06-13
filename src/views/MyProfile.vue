@@ -63,7 +63,7 @@
                     </div>
                     <div class="text-center mb-3">
                       <v-icon class="mr-1">mdi-heart</v-icon>
-                      <span class="mr-2">Liked: 100</span>
+                      <span class="mr-2">Liked: {{ totalLikes }}</span>
                       <span class="mr-1">卒業まで残り:</span>
                       <span class="mr-1">??</span>
                     </div>
@@ -129,7 +129,7 @@
 import { db, storage } from "@/firebase";
 
 export default {
-  name: "MyPage",
+  name: "MyProfile",
   data: () => ({
     dialog: false,
     inputName: "",
@@ -137,7 +137,18 @@ export default {
     name: "",
     email: "",
     inputDescription: "",
+    totalLikes: 0,
+    likesArray: [],
   }),
+
+  watch: {
+    totalLikes: function() {
+      if (this.totalLikes >= 1000) {
+        this.graduate();
+      }
+    },
+  },
+
   computed: {
     user() {
       return this.$store.getters.user;
@@ -220,6 +231,45 @@ export default {
       const imageInput = document.getElementById("imageInput");
       imageInput.click();
     },
+
+    // myFunc(total, num) {
+    //   return total + num;
+    // },
+
+    //いいね数集計関数 (tao)
+    getTotalLikes() {
+      this.likesArray = [];
+
+      db.collection("images").onSnapshot(snapshot => {
+        //access the like collection of each image doc
+        const docs = snapshot.docs;
+
+        for (const doc of docs) {
+          if (this.user.displayName === doc.get("username")) {
+            // console.log(doc.get("username"));
+            // console.log(doc.id);
+
+            db.collection("images")
+              .doc(doc.id)
+              .collection("likes")
+              .doc("likes.id")
+              .get()
+              .then(likenumber => {
+                // this.likesArray.push(likenumber.data());
+                this.totalLikes += likenumber.data().likecount;
+              });
+          }
+        }
+      });
+    },
+
+    graduate() {
+      this.$router.push("/graduationpage");
+    },
+  },
+
+  created() {
+    this.getTotalLikes();
   },
 };
 </script>
