@@ -1,6 +1,6 @@
 <template>
   <div class="mypage">
-    <v-container>
+    <!-- <v-container>
       <h1 class="MyPage">Profile</h1>
       <v-row align="center" justify="center">
         <v-col cols="12">
@@ -20,7 +20,7 @@
           </div>
         </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
   </div>
 </template>
 

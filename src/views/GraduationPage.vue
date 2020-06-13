@@ -1,5 +1,6 @@
 <template>
   <div class="graduationpage">
+
     <v-container class="container">
       <v-img
         alt="graduationimage"
@@ -7,6 +8,7 @@
         src="@/assets/graduation.jpg"
       />
     </v-container>
+
   </div>
 </template>
 

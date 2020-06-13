@@ -13,9 +13,11 @@
           transition="scale-transition"
           width="40"
         /> -->
+
         <h1 class="toolbartitle">
           Music Accelerator
         </h1>
+
         <!-- <v-img
           alt="Vuetify Name"
           class="shrink mt-1 hidden-sm-and-down"
@@ -28,9 +30,9 @@
 
       <v-spacer></v-spacer>
 
-      <div v-if="$store.getters.isSignedIn">
-        <v-btn color="#dc1459" @click="userSignOut">
-          <span class="mr-2">Logout</span>
+      <div v-if="user">
+        <v-btn color="#dc1469" @click="signOut">
+          <span class="mr-2">LOGOUT</span>
           <v-icon class="mdi mdi-account-music"></v-icon>
           <v-icon>account-check</v-icon>
         </v-btn>
@@ -38,7 +40,7 @@
       <div v-else>
         <router-link to="/login">
           <v-btn color="#dc1469">
-            <span class="mr-2">Login</span>
+            <span class="mr-2">LOGIN</span>
             <v-icon class="mdi mdi-account-music"></v-icon>
             <v-icon>account-check</v-icon>
           </v-btn>
@@ -105,9 +107,7 @@
 </template>
 
 <script>
-// import { userSignOut } from "@/firebase";
 import firebase from "firebase";
-
 export default {
   name: "App",
   data: () => ({
@@ -121,20 +121,22 @@ export default {
       { icon: "mdi-home", text: "Home", route: "/" },
       { icon: "mdi-music-note-plus", text: "Musicians", route: "/musicians" },
       { icon: "mdi-magnify", text: "Search", route: "/search" },
-      { icon: "mdi-account-box", text: "MyPage", route: "/mypage" },
+      { icon: "mdi-account-box", text: "MyPage", route: "/myprofile" },
       { icon: "mdi-help", text: "About", route: "/about" },
     ],
+    user: null,
   }),
   methods: {
-    // userSignOut,
-    userSignOut: function() {
+    signOut: function() {
       firebase
         .auth()
         .signOut()
         .then(() => {
+          alert("Logout!");
           this.$router.push("/");
         });
     },
+
     background: function() {
       if (this.drawer === true) {
         this.backgroundStyle.background = "#F8F8FF";
@@ -143,13 +145,15 @@ export default {
       }
     },
   },
-  computed: {
-    user() {
-      return this.$store.getters.user;
-    },
-    userProfile() {
-      return this.$store.getters.userProfile;
-    },
+  created() {
+    // firebase auth ログイン状態を確認
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
   },
 };
 </script>
