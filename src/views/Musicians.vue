@@ -13,14 +13,14 @@
                   <!-- <img src="@/assets/musicAccelerator_logomaker.png" /> -->
                   <v-img>
                     <v-img
-                      :src="user.photoURL"
+                      :src="image.photoURL"
                       alt="profile-image"
                       class="center"
                       accept="image/*"
                     />
                   </v-img>
                 </v-avatar>
-                {{ user.name }}
+                {{ image.userName }}
               </h1>
 
               <video
@@ -127,6 +127,7 @@ export default {
       const timestamp = createdAt.getTime();
       const uniqueFileName = timestamp + "_" + file.name;
       // const imageID = Math.random();
+      const user = firebase.auth().currentUser;
       const userName = firebase.auth().currentUser.displayName;
       const postUserId = firebase.auth().currentUser.uid;
 
@@ -138,10 +139,10 @@ export default {
         .then(url => {
           const image = {
             name: file.name,
-            userName,
-            url,
+            userName: user.displayName,
+            photoURL: user.photoURL,
             createdAt,
-            postUserId,
+            postUserId: user.uid,
           };
 
           this.images.unshift({ name, userName, url, createdAt, postUserId });

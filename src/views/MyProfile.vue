@@ -213,13 +213,12 @@ export default {
           .get()
           .then(snapshot => {
             const docs = snapshot.docs;
-            docs.forEach(function(doc) {
-              doc.ref.update({ userName: this.inputName });
+            docs.forEach(doc => {
+              doc.ref.update({ photoURL: this.inputImage });
             }),
               this.$store
                 .dispatch("updateUserProfile", {
-                  name: this.inputName,
-                  description: this.inputDescription,
+                  photoURL: this.inputImage,
                 })
                 .then(() => {
                   this.dialog = false;
@@ -267,7 +266,6 @@ export default {
       this.$router.push("/graduationpage");
     },
   },
-
   created() {
     this.getTotalLikes();
   },
