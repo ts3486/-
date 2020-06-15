@@ -1,0 +1,28 @@
+[debug] [2020-06-15T06:41:58.411Z] ----------------------------------------------------------------------
+[debug] [2020-06-15T06:41:58.414Z] Command:       /Users/ryota/.nodebrew/node/v14.0.0/bin/node /Users/ryota/.nodebrew/current/bin/firebase deploy
+[debug] [2020-06-15T06:41:58.414Z] CLI Version:   8.2.0
+[debug] [2020-06-15T06:41:58.414Z] Platform:      darwin
+[debug] [2020-06-15T06:41:58.415Z] Node Version:  v14.0.0
+[debug] [2020-06-15T06:41:58.418Z] Time:          Mon Jun 15 2020 15:41:58 GMT+0900 (日本標準時)
+[debug] [2020-06-15T06:41:58.418Z] ----------------------------------------------------------------------
+[debug] [2020-06-15T06:41:58.419Z] 
+[debug] [2020-06-15T06:41:58.434Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-06-15T06:41:58.435Z] > authorizing via signed-in user
+[debug] [2020-06-15T06:41:58.435Z] [iam] checking project musely-7f3f3 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2020-06-15T06:41:58.438Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/musely-7f3f3:testIamPermissions  
+ {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2020-06-15T06:41:59.600Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 15 Jun 2020 06:41:59 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=561","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-06-15T06:41:59.603Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/musely-7f3f3  
+ 
+[debug] [2020-06-15T06:42:00.142Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 15 Jun 2020 06:42:00 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'musely-7f3f3'...
+[info] 
+[info] i  deploying database, storage, firestore, hosting
+[debug] [2020-06-15T06:42:00.452Z] TypeError: rulesConfig.forEach is not a function
+    at module.exports (/Users/ryota/.nodebrew/node/v14.0.0/lib/node_modules/firebase-tools/lib/deploy/database/prepare.js:20:17)
+    at _chain (/Users/ryota/.nodebrew/node/v14.0.0/lib/node_modules/firebase-tools/lib/deploy/index.js:22:40)
+    at /Users/ryota/.nodebrew/node/v14.0.0/lib/node_modules/firebase-tools/lib/deploy/index.js:63:16
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
