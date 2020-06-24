@@ -168,11 +168,11 @@ export default {
 }
 
 .topnavbar {
-  opacity: 90%;
+  // opacity: 90%;
 }
 
 .footer {
-  opacity: 90%;
+  // opacity: 90%;
 }
 
 .shadowbox {

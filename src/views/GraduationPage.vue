@@ -1,11 +1,7 @@
 <template>
   <div class="graduationpage">
     <v-container class="container">
-      <v-img
-        alt="graduationimage"
-        class="graduationimage"
-        src="@/assets/graduation.jpg"
-      />
+      <v-img src="@/assets/graduation.jpg" class="graduationimage" />
     </v-container>
   </div>
 </template>
