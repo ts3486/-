@@ -38,7 +38,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "AboutWebsiteListener",
+};
 </script>
 
 <style lang="scss" scoped>
