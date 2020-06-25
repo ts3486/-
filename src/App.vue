@@ -180,7 +180,7 @@ export default {
   // background: ("rgba(0,0,0,1)");("rgba(0,0,0,1)");
   background: rgb(45, 48, 56);
   opacity: 70%;
-  z-index: 100;
+  z-index: 1;
   height: 1000px;
   width: 1300px;
   transition: 0.3s;

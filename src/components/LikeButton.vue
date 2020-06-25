@@ -2,7 +2,7 @@
   <div>
     <button class="likebutton" @click="addLike()">
       <v-icon class="mdi mdi-cards-heart"></v-icon>
-      <span>{{ this.likes.likecount }}</span>
+      <span class="totallikes">{{ this.likes.likecount }}</span>
     </button>
   </div>
 </template>
@@ -79,5 +79,12 @@ export default {
   margin: auto;
   padding: auto;
   bottom: -20px;
+  z-index: 100;
+  color: black;
+}
+
+.totallikes {
+  z-index: 100;
+  color: black;
 }
 </style>

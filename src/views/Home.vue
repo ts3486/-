@@ -108,6 +108,7 @@ export default {
   float: left;
   position: relative;
   top: -150px;
+  z-index: 100;
 }
 
 .musicianbutton {
@@ -124,9 +125,10 @@ export default {
   border-radius: 5px;
   font-size: 20px;
   font-weight: 100px;
-  opacity: 90%;
+  // opacity: 90%;
   position: relative;
   left: -20px;
+  z-index: 100;
 }
 
 .artistbutton {
@@ -139,6 +141,7 @@ export default {
   border-radius: 5px;
   font-size: 20px;
   font-weight: 100px;
-  opacity: 90%;
+  // opacity: 90%;
+  z-index: 100;
 }
 </style>

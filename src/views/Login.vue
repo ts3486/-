@@ -77,7 +77,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(() => {
-          this.$router.push("/mypage");
+          this.$router.push("/myprofile");
         })
         .catch(error => {
           alert("Error!", error.message);

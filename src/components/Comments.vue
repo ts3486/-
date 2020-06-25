@@ -129,46 +129,53 @@ export default {
 .pagetitle {
   border-bottom: 1px solid black;
   padding: 25px;
+  color: black;
 }
 
 .commentstitle {
   border-bottom: 1px solid black;
-
+  color: black;
   padding-top: 25px;
 }
 
 .namelabel {
   font-weight: bold;
+  color: black;
 }
 
 .commentList {
   width: 100px;
   margin: auto;
   padding: auto;
+  color: black;
 }
 
 .commentlabel {
   height: 25px;
   position: relative;
   top: -15px;
+  color: black;
 }
 
 .defaultmessage {
   margin: auto;
   font-weight: bold;
   font-size: 20px;
+  color: black;
 }
 
 .commentList {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
+  color: black;
 }
 
 .username {
   font-weight: bold;
   padding: 0px;
   margin: 0px;
+  color: black;
 }
 
 .commentbox {
@@ -178,11 +185,13 @@ export default {
   margin: 1px;
   padding: 1px;
   border-radius: 10px;
+  color: black;
 }
 
 .comments {
   margin: 5px;
   padding: 5px;
+  color: black;
 }
 
 .uploadform {
@@ -191,19 +200,23 @@ export default {
   justify-content: center;
   margin-top: 100px;
   margin-bottom: 50px;
+  color: black;
 }
 
 .inputfile {
   margin: auto;
+  color: black;
 }
 
 .uploadbutton {
   border-radius: 100px;
+  color: black;
 }
 
 .content {
   margin-top: 20px;
   margin-bottom: 10px;
+  color: black;
 }
 
 .scrollfield {
@@ -213,9 +226,11 @@ export default {
   align-items: center;
   height: 150px;
   width: auto;
+  color: black;
 }
 
 .limitbox {
   max-height: 100px;
+  color: black;
 }
 </style>

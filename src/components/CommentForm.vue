@@ -56,33 +56,38 @@ export default {
 
 .commentstitle {
   border-bottom: 1px solid black;
-
+  color: black;
   padding-top: 10px;
 }
 
 .namelabel {
   font-weight: bold;
   padding-right: 5px;
+  color: black;
 }
 
 .usernameinput {
   border: 1px solid black;
   width: 200px;
+  color: black;
 }
 
 .commentList {
   margin: 10px;
   padding: 10px;
+  color: black;
 }
 
 .textarea {
   border: 1px solid black;
   width: 200px;
   margin-top: 20px;
+  color: black;
 }
 
 .commentlabel {
   font-weight: bold;
+  color: black;
   height: auto;
   position: relative;
   top: -35px;
@@ -98,11 +103,13 @@ export default {
 .commentList {
   list-style-type: none;
   margin: 5px;
+  color: black;
 }
 
 .username {
   font-weight: bold;
   padding-top: 20px;
+  color: black;
 }
 
 .commentbox {
@@ -110,11 +117,13 @@ export default {
   height: 100px;
   width: 500px;
   border-radius: 10px;
+  color: black;
 }
 
 .comments {
   margin: 10px;
   padding: 15px;
+  color: black;
 }
 
 .uploadform {
@@ -123,19 +132,23 @@ export default {
   justify-content: center;
   margin-top: 100px;
   margin-bottom: 50px;
+  color: black;
 }
 
 .inputfile {
   margin: auto;
+  color: black;
 }
 
 .uploadbutton {
   border-radius: 100px;
+  color: black;
 }
 
 .content {
   margin-top: 20px;
   margin-bottom: 10px;
+  color: black;
 }
 
 .button {
@@ -147,6 +160,7 @@ export default {
   margin-top: 10px;
   margin-left: 120px;
   border-radius: 1px;
+  color: black;
 }
 
 // .commentformspace {
